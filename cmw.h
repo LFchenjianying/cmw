@@ -1,5 +1,5 @@
 /**
- * @file mdl.h
+ * @file cmw.h
  * @author {chenjianying} ({LFchenjianying@outlook.com})
  * @brief 
  * @version 0.1
@@ -8,39 +8,39 @@
  * @copyright Copyright (c) 2021
  * 
  */
-#ifndef __MDL_H__
-#define __MDL_H__
+#ifndef __CMW_H__
+#define __CMW_H__
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 
-#include "mdl_def.h"
+#include "cmw_def.h"
 
 
-#ifdef MDL_USING_CTRL
-	#include "mdl_ctrl.h"
+#ifdef CMW_USING_CTRL
+	#include "cmw_ctrl.h"
 #endif
 
-#ifdef MDL_USING_SPI
-	#include "mdl_spi.h"
+#ifdef CMW_USING_SPI
+	#include "cmw_spi.h"
 #endif
 
-#ifdef MDL_USING_LAT
-	#include "mdl_lat.h"
+#ifdef CMW_USING_LAT
+	#include "cmw_lat.h"
 #endif
 
-#ifdef MDL_USING_TIMESLICE
-	#include "mdl_rr.h"
+#ifdef CMW_USING_TIMESLICE
+	#include "cmw_rr.h"
 #endif
 
-#ifdef MDL_USING_SMD
-	#include "mdl_smd.h"
+#ifdef CMW_USING_SMD
+	#include "cmw_smd.h"
 #endif
 
-#ifdef MDL_USING_BTN
-	#include "mdl_btn.h"
+#ifdef CMW_USING_BTN
+	#include "cmw_btn.h"
 #endif
 
 #ifdef __cplusplus
@@ -48,5 +48,5 @@ extern "C" {
 #endif
 
 
-#endif /* __MDL_H__ */
+#endif /* __CMW_H__ */
 
