@@ -1,5 +1,5 @@
 /**
- * @file mdl.c
+ * @file cmw.c
  * @author {chenjianying} ({LFchenjianying@outlook.com})
  * @brief
  * @version 0.1
@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2021
  *
  */
-#include "mdl_def.h"
-#include "mdl.h"
-#ifdef MDL_USING_RTT
+#include "cmw_def.h"
+#include "cmw.h"
+#ifdef CMW_USING_RTT
     #include <rtthread.h>
 #endif
 #include "stdlib.h"
@@ -22,7 +22,7 @@
  *
  * @param queue
  */
-static mdl_bool_t rqueue_reset ( mdl_ring_queue_t *queue )
+static cmw_bool_t rqueue_reset ( cmw_ring_queue_t *queue )
 {
     if ( queue == NULL ) { return FALSE; }
 
@@ -30,7 +30,7 @@ static mdl_bool_t rqueue_reset ( mdl_ring_queue_t *queue )
     queue->in_data.rear = 0;
     return TRUE;
 }
-static mdl_bool_t rqueue_is_full ( mdl_ring_queue_t *queue )
+static cmw_bool_t rqueue_is_full ( cmw_ring_queue_t *queue )
 {
     if ( ( queue->in_data.rear + 1 ) % queue->in_data.length == queue->in_data.front )
     {
@@ -39,7 +39,7 @@ static mdl_bool_t rqueue_is_full ( mdl_ring_queue_t *queue )
     else
     { return FALSE; }
 }
-static mdl_bool_t rqueue_enqueue ( mdl_ring_queue_t *queue, void *queue_data )
+static cmw_bool_t rqueue_enqueue ( cmw_ring_queue_t *queue, void *queue_data )
 {
     if ( rqueue_is_full ( queue ) != TRUE )  //队列未满
     {
@@ -54,7 +54,7 @@ static mdl_bool_t rqueue_enqueue ( mdl_ring_queue_t *queue, void *queue_data )
 
     return TRUE;
 }
-static mdl_bool_t rqueue_is_empty ( mdl_ring_queue_t *queue )
+static cmw_bool_t rqueue_is_empty ( cmw_ring_queue_t *queue )
 {
     if ( queue->in_data.front == queue->in_data.rear )
     {
@@ -63,7 +63,7 @@ static mdl_bool_t rqueue_is_empty ( mdl_ring_queue_t *queue )
     else
     { return FALSE; }
 }
-static mdl_bool_t rqueue_dequeue ( mdl_ring_queue_t *queue, mdl_rqueue_data_t queue_data )
+static cmw_bool_t rqueue_dequeue ( cmw_ring_queue_t *queue, cmw_rqueue_data_t queue_data )
 {
     if ( rqueue_is_empty ( queue ) != TRUE )  //队列未空
     {
@@ -86,9 +86,9 @@ static mdl_bool_t rqueue_dequeue ( mdl_ring_queue_t *queue, mdl_rqueue_data_t qu
  *
  * @param queue
  * @param queue_data
- * @return mdl_bool_t
+ * @return cmw_bool_t
  */
-static mdl_bool_t rqueue_get_front ( mdl_ring_queue_t *queue, mdl_rqueue_data_t queue_data )
+static cmw_bool_t rqueue_get_front ( cmw_ring_queue_t *queue, cmw_rqueue_data_t queue_data )
 {
     if ( queue == NULL || queue_data == NULL ) { return FALSE; }
 
@@ -111,9 +111,9 @@ static mdl_bool_t rqueue_get_front ( mdl_ring_queue_t *queue, mdl_rqueue_data_t 
  *
  * @param queue
  * @param queue_data
- * @return mdl_bool_t
+ * @return cmw_bool_t
  */
-static mdl_bool_t rqueue_get_rear ( mdl_ring_queue_t *queue, mdl_rqueue_data_t queue_data )
+static cmw_bool_t rqueue_get_rear ( cmw_ring_queue_t *queue, cmw_rqueue_data_t queue_data )
 {
     if ( queue == NULL || queue_data == NULL ) { return FALSE; }
 
@@ -136,9 +136,9 @@ static mdl_bool_t rqueue_get_rear ( mdl_ring_queue_t *queue, mdl_rqueue_data_t q
  *
  * @param queue
  * @param queue_data
- * @return mdl_bool_t
+ * @return cmw_bool_t
  */
-static mdl_bool_t rqueue_get_front_addr ( mdl_ring_queue_t *queue, mdl_rqueue_data_t *queue_data )
+static cmw_bool_t rqueue_get_front_addr ( cmw_ring_queue_t *queue, cmw_rqueue_data_t *queue_data )
 {
     if ( queue == NULL || queue_data == NULL ) { return FALSE; }
 
@@ -155,7 +155,7 @@ static mdl_bool_t rqueue_get_front_addr ( mdl_ring_queue_t *queue, mdl_rqueue_da
             p_dec = ( int ) queue->in_data.p_buffer + ( queue->in_data.length - 1 ) * queue->in_data.data_size ;
         }
 
-        *queue_data = ( mdl_rqueue_data_t ) p_dec;
+        *queue_data = ( cmw_rqueue_data_t ) p_dec;
     }
     else
     {
@@ -170,9 +170,9 @@ static mdl_bool_t rqueue_get_front_addr ( mdl_ring_queue_t *queue, mdl_rqueue_da
  *
  * @param queue
  * @param queue_data
- * @return mdl_bool_t
+ * @return cmw_bool_t
  */
-static mdl_bool_t rqueue_get_rear_addr ( mdl_ring_queue_t *queue, mdl_rqueue_data_t *queue_data )
+static cmw_bool_t rqueue_get_rear_addr ( cmw_ring_queue_t *queue, cmw_rqueue_data_t *queue_data )
 {
     if ( queue == NULL || queue_data == NULL ) { return FALSE; }
 
@@ -189,7 +189,7 @@ static mdl_bool_t rqueue_get_rear_addr ( mdl_ring_queue_t *queue, mdl_rqueue_dat
             p_dec = ( int ) queue->in_data.p_buffer + ( queue->in_data.length - 1 ) * queue->in_data.data_size ;
         }
 
-        *queue_data = ( mdl_rqueue_data_t ) p_dec;
+        *queue_data = ( cmw_rqueue_data_t ) p_dec;
     }
     else
     {
@@ -204,9 +204,9 @@ static mdl_bool_t rqueue_get_rear_addr ( mdl_ring_queue_t *queue, mdl_rqueue_dat
  * @brief 获取剩余缓冲区长度
  *
  * @param queue
- * @return mdl_u32_t
+ * @return cmw_u32_t
  */
-static mdl_u32_t rqueue_remain_length ( mdl_ring_queue_t *queue )
+static cmw_u32_t rqueue_remain_length ( cmw_ring_queue_t *queue )
 {
     if ( queue->in_data.front > queue->in_data.rear )
     {
@@ -227,9 +227,9 @@ static mdl_u32_t rqueue_remain_length ( mdl_ring_queue_t *queue )
  * @param queue
  * @param queue_data
  * @param u32_max_length
- * @return mdl_bool_t
+ * @return cmw_bool_t
  */
-mdl_bool_t mdl_ring_queue_create ( mdl_ring_queue_t *queue, mdl_rqueue_data_t *queue_data, uint32_t queue_length, uint32_t data_size )
+cmw_bool_t cmw_ring_queue_create ( cmw_ring_queue_t *queue, cmw_rqueue_data_t *queue_data, uint32_t queue_length, uint32_t data_size )
 {
     if ( queue == NULL || queue_data == NULL || queue_length == NULL || data_size == NULL ) { return FALSE; }
 
@@ -252,15 +252,15 @@ mdl_bool_t mdl_ring_queue_create ( mdl_ring_queue_t *queue, mdl_rqueue_data_t *q
 /*************************** 断言打印 **********************************/
 
 /**
- * The MDL_ASSERT function.
+ * The CMW_ASSERT function.
  *
  * @param ex the assertion condition string
  * @param func the function name when assertion.
  * @param line the file line number when assertion.
  */
-void mdl_assert_handler ( const char *ex_string, const char *func, mdl_u32_t line )
+void cmw_assert_handler ( const char *ex_string, const char *func, cmw_u32_t line )
 {
-    #ifdef MDL_USING_RTT
+    #ifdef CMW_USING_RTT
     rt_kprintf ( "(%s) assertion failed at function:%s, line number:%d \n", ex_string, func, line );
     #else
     printf ( "(%s) assertion failed at function:%s, line number:%d \n", ex_string, func, line );
@@ -274,9 +274,9 @@ void mdl_assert_handler ( const char *ex_string, const char *func, mdl_u32_t lin
  * @param size
  * @return void*
  */
-void *mdl_malloc ( mdl_size_t size )
+void *cmw_malloc ( cmw_size_t size )
 {
-    #ifdef MDL_USING_RTT
+    #ifdef CMW_USING_RTT
     return rt_malloc ( size );
     #else
     return malloc ( size );
@@ -291,9 +291,9 @@ void *mdl_malloc ( mdl_size_t size )
  *
  * @return the changed memory block address
  */
-void *mdl_realloc ( void *rmem, mdl_size_t newsize )
+void *cmw_realloc ( void *rmem, cmw_size_t newsize )
 {
-    #ifdef MDL_USING_RTT
+    #ifdef CMW_USING_RTT
     return rt_realloc ( rmem, newsize );
     #else
     return realloc ( rmem, newsize );
@@ -306,9 +306,9 @@ void *mdl_realloc ( void *rmem, mdl_size_t newsize )
  *
  * @param rmem the address of memory which will be released
  */
-void mdl_free ( void *rmem )
+void cmw_free ( void *rmem )
 {
-    #ifdef MDL_USING_RTT
+    #ifdef CMW_USING_RTT
     rt_free ( rmem );
     #else
     free ( rmem );
@@ -321,7 +321,7 @@ void mdl_free ( void *rmem )
  *
  * @param l list to be initialized
  */
-void mdl_list_init ( mdl_list_t *l )
+void cmw_list_init ( cmw_list_t *l )
 {
     l->next = l->prev = l;
 }
@@ -332,7 +332,7 @@ void mdl_list_init ( mdl_list_t *l )
  * @param l list to insert it
  * @param n new node to be inserted
  */
-void mdl_list_insert_after ( mdl_list_t *l, mdl_list_t *n )
+void cmw_list_insert_after ( cmw_list_t *l, cmw_list_t *n )
 {
     l->next->prev = n;
     n->next = l->next;
@@ -346,7 +346,7 @@ void mdl_list_insert_after ( mdl_list_t *l, mdl_list_t *n )
  * @param n new node to be inserted
  * @param l list to insert it
  */
-void mdl_list_insert_before ( mdl_list_t *l, mdl_list_t *n )
+void cmw_list_insert_before ( cmw_list_t *l, cmw_list_t *n )
 {
     l->prev->next = n;
     n->prev = l->prev;
@@ -358,7 +358,7 @@ void mdl_list_insert_before ( mdl_list_t *l, mdl_list_t *n )
  * @brief remove node from list.
  * @param n the node to remove from the list.
  */
-void mdl_list_remove ( mdl_list_t *n )
+void cmw_list_remove ( cmw_list_t *n )
 {
     n->next->prev = n->prev;
     n->prev->next = n->next;
@@ -369,7 +369,7 @@ void mdl_list_remove ( mdl_list_t *n )
  * @brief tests whether a list is empty
  * @param l the list to test.
  */
-mdl_s32_t mdl_list_isempty ( const mdl_list_t *l )
+cmw_s32_t cmw_list_isempty ( const cmw_list_t *l )
 {
     return l->next == l;
 }
@@ -378,10 +378,10 @@ mdl_s32_t mdl_list_isempty ( const mdl_list_t *l )
  * @brief get the list length
  * @param l the list to get.
  */
-mdl_u32_t mdl_list_len ( const mdl_list_t *l )
+cmw_u32_t cmw_list_len ( const cmw_list_t *l )
 {
-    mdl_u32_t len = 0;
-    const mdl_list_t *p = l;
+    cmw_u32_t len = 0;
+    const cmw_list_t *p = l;
 
     while ( p->next != l )
     {
@@ -399,9 +399,9 @@ mdl_u32_t mdl_list_len ( const mdl_list_t *l )
  *
  * @param l
  */
-void mdl_slist_init ( mdl_slist_t *l )
+void cmw_slist_init ( cmw_slist_t *l )
 {
-    l->next = MDL_NULL;
+    l->next = CMW_NULL;
 }
 
 /**
@@ -410,16 +410,16 @@ void mdl_slist_init ( mdl_slist_t *l )
  * @param l
  * @param n
  */
-void mdl_slist_append ( mdl_slist_t *l, mdl_slist_t *n )
+void cmw_slist_append ( cmw_slist_t *l, cmw_slist_t *n )
 {
-    struct mdl_slist_node *node;
+    struct cmw_slist_node *node;
     node = l;
 
     while ( node->next ) { node = node->next; }
 
     /* append the node to the tail */
     node->next = n;
-    n->next = MDL_NULL;
+    n->next = CMW_NULL;
 }
 
 /**
@@ -428,7 +428,7 @@ void mdl_slist_append ( mdl_slist_t *l, mdl_slist_t *n )
  * @param l
  * @param n
  */
-void mdl_slist_insert ( mdl_slist_t *l, mdl_slist_t *n )
+void cmw_slist_insert ( cmw_slist_t *l, cmw_slist_t *n )
 {
     n->next = l->next;
     l->next = n;
@@ -438,14 +438,14 @@ void mdl_slist_insert ( mdl_slist_t *l, mdl_slist_t *n )
  * @brief 获取单向链表长度
  *
  * @param l
- * @return mdl_u32_t
+ * @return cmw_u32_t
  */
-mdl_u32_t mdl_slist_len ( const mdl_slist_t *l )
+cmw_u32_t cmw_slist_len ( const cmw_slist_t *l )
 {
-    mdl_u32_t len = 0;
-    const mdl_slist_t *list = l->next;
+    cmw_u32_t len = 0;
+    const cmw_slist_t *list = l->next;
 
-    while ( list != MDL_NULL )
+    while ( list != CMW_NULL )
     {
         list = list->next;
         len ++;
@@ -459,17 +459,17 @@ mdl_u32_t mdl_slist_len ( const mdl_slist_t *l )
  *
  * @param l
  * @param n
- * @return mdl_slist_t*
+ * @return cmw_slist_t*
  */
-mdl_slist_t *mdl_slist_remove ( mdl_slist_t *l, mdl_slist_t *n )
+cmw_slist_t *cmw_slist_remove ( cmw_slist_t *l, cmw_slist_t *n )
 {
     /* remove slist head */
-    struct mdl_slist_node *node = l;
+    struct cmw_slist_node *node = l;
 
     while ( node->next && node->next != n ) { node = node->next; }
 
     /* remove node */
-    if ( node->next != ( mdl_slist_t * ) 0 ) { node->next = node->next->next; }
+    if ( node->next != ( cmw_slist_t * ) 0 ) { node->next = node->next->next; }
 
     return l;
 }
@@ -478,9 +478,9 @@ mdl_slist_t *mdl_slist_remove ( mdl_slist_t *l, mdl_slist_t *n )
  * @brief 获取第一个节点
  *
  * @param l
- * @return mdl_slist_t*
+ * @return cmw_slist_t*
  */
-mdl_slist_t *mdl_slist_first ( mdl_slist_t *l )
+cmw_slist_t *cmw_slist_first ( cmw_slist_t *l )
 {
     return l->next;
 }
@@ -489,9 +489,9 @@ mdl_slist_t *mdl_slist_first ( mdl_slist_t *l )
  * @brief 单向链表获取最后一个节点
  *
  * @param l
- * @return mdl_slist_t*
+ * @return cmw_slist_t*
  */
-mdl_slist_t *mdl_slist_tail ( mdl_slist_t *l )
+cmw_slist_t *cmw_slist_tail ( cmw_slist_t *l )
 {
     while ( l->next ) { l = l->next; }
 
@@ -502,9 +502,9 @@ mdl_slist_t *mdl_slist_tail ( mdl_slist_t *l )
  * @brief 单向链表获取下一个节点
  *
  * @param n
- * @return mdl_slist_t*
+ * @return cmw_slist_t*
  */
-mdl_slist_t *mdl_slist_next ( mdl_slist_t *n )
+cmw_slist_t *cmw_slist_next ( cmw_slist_t *n )
 {
     return n->next;
 }
@@ -515,8 +515,8 @@ mdl_slist_t *mdl_slist_next ( mdl_slist_t *n )
  * @param l
  * @return int
  */
-mdl_s32_t mdl_slist_isempty ( mdl_slist_t *l )
+cmw_s32_t cmw_slist_isempty ( cmw_slist_t *l )
 {
-    return l->next == MDL_NULL;
+    return l->next == CMW_NULL;
 }
 

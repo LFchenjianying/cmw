@@ -10,12 +10,12 @@
  */
 
 
-#ifndef __MDL_LAT_H__
-#define __MDL_LAT_H__
+#ifndef __CMW_LAT_H__
+#define __CMW_LAT_H__
 
-#include "mdl_def.h"
+#include "cmw_def.h"
 
-#if defined(MDL_USING_LAT)
+#if defined(CMW_USING_LAT)
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,23 +31,23 @@ extern "C" {
 // 切换页面定义
 typedef struct
 {
-    mdl_u16_t up;
-    mdl_u16_t down;
-    mdl_u16_t left;
-    mdl_u16_t right;
-    mdl_u16_t enter;
-    mdl_u16_t esc;
+    cmw_u16_t up;
+    cmw_u16_t down;
+    cmw_u16_t left;
+    cmw_u16_t right;
+    cmw_u16_t enter;
+    cmw_u16_t esc;
 } lat_page_shift_t;
 
 // 切换聚焦方向定义
 typedef struct
 {
-    mdl_u16_t up;
-    mdl_u16_t down;
-    mdl_u16_t left;
-    mdl_u16_t right;
-    mdl_u16_t enter;
-    mdl_u16_t esc;
+    cmw_u16_t up;
+    cmw_u16_t down;
+    cmw_u16_t left;
+    cmw_u16_t right;
+    cmw_u16_t enter;
+    cmw_u16_t esc;
 } lat_control_focus_shift_t;
 // 按键事件定义
 typedef void ( *lat_key_cb_t ) ( void );
@@ -69,20 +69,20 @@ struct lat_button_control
 {
     struct button_in_data           /* 应用层不可直接调用的数据 */
     {
-        mdl_u16_t id; /* index of button */
-        mdl_u16_t x; /* x position of button */
-        mdl_u16_t y; /* y position of button */
-        mdl_u16_t width; /* width of button */
-        mdl_u16_t height; /* height of button */
-        mdl_u16_t radius; /* radius of button */
-        mdl_u16_t x_text_offset; /* x position of text offset */
-        mdl_u16_t y_text_offset; /* y position of text offset */
-        mdl_u16_t text_size; /* size of text */
-        mdl_u8_t *p_text; /* pointer to text */
-        mdl_u8_t **pp_deposit_text; /* deposit to text */
+        cmw_u16_t id; /* index of button */
+        cmw_u16_t x; /* x position of button */
+        cmw_u16_t y; /* y position of button */
+        cmw_u16_t width; /* width of button */
+        cmw_u16_t height; /* height of button */
+        cmw_u16_t radius; /* radius of button */
+        cmw_u16_t x_text_offset; /* x position of text offset */
+        cmw_u16_t y_text_offset; /* y position of text offset */
+        cmw_u16_t text_size; /* size of text */
+        cmw_u8_t *p_text; /* pointer to text */
+        cmw_u8_t **pp_deposit_text; /* deposit to text */
 
-        mdl_u8_t is_focus; /* flag indicating if focus should be focused */
-        mdl_u8_t is_show; /* is_show flag */
+        cmw_u8_t is_focus; /* flag indicating if focus should be focused */
+        cmw_u8_t is_show; /* is_show flag */
         lat_control_focus_shift_t focus_shift;
         lat_page_shift_t page_shift;
         lat_key_event_t key_event;
@@ -91,13 +91,13 @@ struct lat_button_control
     {
         void ( *in_ctrl_cb ) ( struct lat_button_control *p_button );
         void ( *out_ctrl_cb ) ( struct lat_button_control *p_button );
-        void ( *key_cb ) ( struct lat_button_control *p_button, mdl_u16_t key_value );
+        void ( *key_cb ) ( struct lat_button_control *p_button, cmw_u16_t key_value );
     } in_method;
     struct button_out_method        /* 应用层可直接调用的方法 */
     {
-        void ( *set_text ) ( struct lat_button_control *p_button, mdl_u8_t *p_text );
+        void ( *set_text ) ( struct lat_button_control *p_button, cmw_u8_t *p_text );
     } out_method;
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_button_control lat_button_control_t;
@@ -110,16 +110,16 @@ struct lat_picture_control
 {
     struct picture_in_data           /* 应用层不可直接调用的数据 */
     {
-        mdl_u16_t id; /* index of button */
-        mdl_u16_t x; /* x position of picture */
-        mdl_u16_t y; /* y position of picture */
-        mdl_u16_t width; /* width of picture */
-        mdl_u16_t height; /* height of picture */
-        mdl_u8_t *p_picture; /* pointer to picture */
-        mdl_u8_t **pp_deposit_picture; /* deposit to text */
+        cmw_u16_t id; /* index of button */
+        cmw_u16_t x; /* x position of picture */
+        cmw_u16_t y; /* y position of picture */
+        cmw_u16_t width; /* width of picture */
+        cmw_u16_t height; /* height of picture */
+        cmw_u8_t *p_picture; /* pointer to picture */
+        cmw_u8_t **pp_deposit_picture; /* deposit to text */
 
-        mdl_u16_t is_focus; /* is_focus flag */
-        mdl_u8_t is_show; /* is_show flag */
+        cmw_u16_t is_focus; /* is_focus flag */
+        cmw_u8_t is_show; /* is_show flag */
         lat_control_focus_shift_t focus_shift;
         lat_page_shift_t page_shift;
         lat_key_event_t key_event;
@@ -128,14 +128,14 @@ struct lat_picture_control
     {
         void ( *in_ctrl_cb ) ( struct lat_picture_control *p_picture );
         void ( *out_ctrl_cb ) ( struct lat_picture_control *p_picture );
-        void ( *key_cb ) ( struct lat_picture_control *p_picture, mdl_u16_t key_value );
+        void ( *key_cb ) ( struct lat_picture_control *p_picture, cmw_u16_t key_value );
     } in_method;
     //  struct picture_out_method        /* 应用层可直接调用的方法 */
     //    {
-    //        void (*config)(struct lat_picture_control p_picture, mdl_u16_t x, mdl_u16_t y, mdl_u16_t width, mdl_u16_t height, uint32_t * p_picture_addr);
+    //        void (*config)(struct lat_picture_control p_picture, cmw_u16_t x, cmw_u16_t y, cmw_u16_t width, cmw_u16_t height, uint32_t * p_picture_addr);
     //        void (*change_picture)(struct lat_picture_control p_picture, uint32_t * p_picture_addr);
     //  } out_method;
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_picture_control lat_picture_control_t;
@@ -148,15 +148,15 @@ struct lat_label_control
 {
     struct label_in_data           /* 应用层不可直接调用的数据 */
     {
-        mdl_u16_t id; /* index  of label */
-        mdl_u16_t x; /* x position of label */
-        mdl_u16_t y; /* y position of label */
-        mdl_u16_t size; /* size of label */
-        mdl_u8_t *p_text; /* label text */
-        mdl_u8_t **pp_deposit_text; /* deposit to text */
+        cmw_u16_t id; /* index  of label */
+        cmw_u16_t x; /* x position of label */
+        cmw_u16_t y; /* y position of label */
+        cmw_u16_t size; /* size of label */
+        cmw_u8_t *p_text; /* label text */
+        cmw_u8_t **pp_deposit_text; /* deposit to text */
 
-        mdl_u16_t is_focus; /* is_focus flag */
-        mdl_u8_t is_show; /* is_show flag */
+        cmw_u16_t is_focus; /* is_focus flag */
+        cmw_u8_t is_show; /* is_show flag */
         lat_control_focus_shift_t focus_shift;
         lat_page_shift_t page_shift;
         lat_key_event_t key_event;
@@ -167,14 +167,14 @@ struct lat_label_control
         void ( *in_ctrl_cb ) ( struct lat_label_control *p_label );
         void ( *out_ctrl_cb ) ( struct lat_label_control *p_label );
 
-        void ( *key_cb ) ( struct lat_label_control *p_label, mdl_u16_t key_value );
+        void ( *key_cb ) ( struct lat_label_control *p_label, cmw_u16_t key_value );
     } in_method;
     struct label_out_method        /* 应用层可直接调用的方法 */
     {
-        void ( *set_text ) ( struct lat_label_control *p_label, mdl_u8_t *p_text );
+        void ( *set_text ) ( struct lat_label_control *p_label, cmw_u8_t *p_text );
     } out_method;
 
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_label_control lat_label_control_t;
@@ -187,22 +187,22 @@ struct lat_number_control
 {
     struct number_in_data           /* 应用层不可直接调用的数据 */
     {
-        mdl_u16_t id; /* index  of number */
-        mdl_u16_t x; /* x position of number */
-        mdl_u16_t y; /* y position of number */
-        mdl_u16_t size; /* size of number */
-        mdl_u8_t integer_digits;  /* integer of number */
-        mdl_u8_t decimal_digits; /* decimal of number */
-        mdl_s32_t value; /* value of number */
-        mdl_s32_t *p_deposit_value; /* deposit to text */
+        cmw_u16_t id; /* index  of number */
+        cmw_u16_t x; /* x position of number */
+        cmw_u16_t y; /* y position of number */
+        cmw_u16_t size; /* size of number */
+        cmw_u8_t integer_digits;  /* integer of number */
+        cmw_u8_t decimal_digits; /* decimal of number */
+        cmw_s32_t value; /* value of number */
+        cmw_s32_t *p_deposit_value; /* deposit to text */
 
-        mdl_u16_t number_focus_position; /* focus of position in number */
+        cmw_u16_t number_focus_position; /* focus of position in number */
 
-        mdl_s32_t old_value;
-        mdl_s32_t max_value;
-        mdl_u16_t is_focus; /* is_focus flag */
-        mdl_u8_t is_show; /* is_show flag */
-        mdl_u8_t is_limit; /* is_show flag */
+        cmw_s32_t old_value;
+        cmw_s32_t max_value;
+        cmw_u16_t is_focus; /* is_focus flag */
+        cmw_u8_t is_show; /* is_show flag */
+        cmw_u8_t is_limit; /* is_show flag */
         lat_control_focus_shift_t focus_shift;
         lat_page_shift_t page_shift;
         lat_key_event_t key_event;
@@ -213,7 +213,7 @@ struct lat_number_control
     {
         void ( *in_ctrl_cb ) ( struct lat_number_control *p_number );
         void ( *out_ctrl_cb ) ( struct lat_number_control *p_number );
-        void ( *key_cb ) ( struct lat_number_control *p_number, mdl_u16_t key_value );
+        void ( *key_cb ) ( struct lat_number_control *p_number, cmw_u16_t key_value );
         void ( *value_change ) ( struct lat_number_control *p_number );
     } in_method;
     struct number_out_method        /* 应用层可直接调用的方法 */
@@ -221,15 +221,15 @@ struct lat_number_control
         void ( *number_focus_left_shift ) ( struct lat_number_control *p_number );
         void ( *number_focus_right_shift ) ( struct lat_number_control *p_number );
 
-        void ( *number_focus_position_set ) ( struct lat_number_control *p_number, mdl_u16_t number_focus_position );
+        void ( *number_focus_position_set ) ( struct lat_number_control *p_number, cmw_u16_t number_focus_position );
 
         void ( *value_add ) ( struct lat_number_control *p_number );
         void ( *value_sub ) ( struct lat_number_control *p_number );
 
-        mdl_u16_t ( *get_number_focus_positions ) ( struct lat_number_control *p_number );
+        cmw_u16_t ( *get_number_focus_positions ) ( struct lat_number_control *p_number );
 
     } out_method;
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_number_control lat_number_control_t;
@@ -240,17 +240,17 @@ struct lat_checkbox_control
 {
     struct checkbox_in_data
     {
-        mdl_u16_t id; /* index  of label */
-        mdl_u16_t x; /* x position of label */
-        mdl_u16_t y; /* y position of label */
+        cmw_u16_t id; /* index  of label */
+        cmw_u16_t x; /* x position of label */
+        cmw_u16_t y; /* y position of label */
 
-        mdl_u8_t *p_text;
-        mdl_u16_t size;
-        mdl_u8_t is_select;
-        mdl_u8_t *p_deposit_is_select;
+        cmw_u8_t *p_text;
+        cmw_u16_t size;
+        cmw_u8_t is_select;
+        cmw_u8_t *p_deposit_is_select;
 
-        mdl_u16_t is_focus; /* is_focus flag */
-        mdl_u8_t is_show; /* is_show flag */
+        cmw_u16_t is_focus; /* is_focus flag */
+        cmw_u8_t is_show; /* is_show flag */
         lat_control_focus_shift_t focus_shift;
         lat_page_shift_t page_shift;
         lat_key_event_t key_event;
@@ -259,41 +259,41 @@ struct lat_checkbox_control
     {
         void ( *in_ctrl_cb ) ( struct lat_checkbox_control *p_checkbox );
         void ( *out_ctrl_cb ) ( struct lat_checkbox_control *p_checkbox );
-        void ( *key_cb ) ( struct lat_checkbox_control *p_checkbox, mdl_u16_t key_value );
+        void ( *key_cb ) ( struct lat_checkbox_control *p_checkbox, cmw_u16_t key_value );
     } in_method;
 
 
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_checkbox_control lat_checkbox_control_t;
 
 
 // 下拉菜单组合框 combo box  class define
-#define LAT_COMBO_DATA(p)  ((mdl_u8_t *)(p))
+#define LAT_COMBO_DATA(p)  ((cmw_u8_t *)(p))
 #define LAT_COMBO_DATA_LIST_MAX  100
 struct lat_combo_control
 {
     struct combo_in_data           /* 应用层不可直接调用的数据 */
     {
-        mdl_u16_t id; /* index  of label */
-        mdl_u16_t x; /* x position of label */
-        mdl_u16_t y; /* y position of label */
+        cmw_u16_t id; /* index  of label */
+        cmw_u16_t x; /* x position of label */
+        cmw_u16_t y; /* y position of label */
 
-        mdl_u16_t width;
-        mdl_u16_t height;
-        mdl_u16_t box_width;
-        mdl_u16_t x_text_offset; /* x position of text offset */
-        mdl_u16_t y_text_offset; /* y position of text offset */
+        cmw_u16_t width;
+        cmw_u16_t height;
+        cmw_u16_t box_width;
+        cmw_u16_t x_text_offset; /* x position of text offset */
+        cmw_u16_t y_text_offset; /* y position of text offset */
 
-        mdl_u16_t size; /* size of label */
-        mdl_u8_t *p_text[LAT_COMBO_DATA_LIST_MAX];
-        mdl_u16_t current_index; /* current index */
-        mdl_u16_t *p_deposit_current_index; /* current index */
+        cmw_u16_t size; /* size of label */
+        cmw_u8_t *p_text[LAT_COMBO_DATA_LIST_MAX];
+        cmw_u16_t current_index; /* current index */
+        cmw_u16_t *p_deposit_current_index; /* current index */
 
-        mdl_u16_t is_edit;
-        mdl_u16_t is_focus; /* is_focus flag */
-        mdl_u8_t is_show; /* is_show flag */
+        cmw_u16_t is_edit;
+        cmw_u16_t is_focus; /* is_focus flag */
+        cmw_u8_t is_show; /* is_show flag */
         lat_control_focus_shift_t focus_shift;
         lat_page_shift_t page_shift;
         lat_key_event_t key_event;
@@ -303,7 +303,7 @@ struct lat_combo_control
     {
         void ( *in_ctrl_cb ) ( struct lat_combo_control *p_combo );
         void ( *out_ctrl_cb ) ( struct lat_combo_control *p_combo );
-        void ( *key_cb ) ( struct lat_combo_control *p_combo, mdl_u16_t key_value );
+        void ( *key_cb ) ( struct lat_combo_control *p_combo, cmw_u16_t key_value );
     } in_method;
     struct combo_out_method
     {
@@ -311,7 +311,7 @@ struct lat_combo_control
         void ( *combo_index_sub ) ( struct lat_combo_control *p_combo );
     } out_method;
 
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_combo_control lat_combo_control_t;
@@ -322,19 +322,19 @@ struct lat_listbox_control
 {
     struct listbox_in_data           /* 应用层不可直接调用的数据 */
     {
-        mdl_u16_t id; /* index  of label */
-        mdl_u16_t x; /* x position of label */
-        mdl_u16_t y; /* y position of label */
-        mdl_u16_t width;
-        mdl_u16_t height;
-        mdl_u16_t size; /* size of label */
-        mdl_u16_t max_show_line;    /* 每页最大显示行数 */
-        mdl_u8_t **p_text_list;    /* 由后台传递 */
-        mdl_u16_t first_line_index; /* 首行索引 */
-        mdl_u16_t current_index; /* current index */
-        mdl_u16_t *p_deposit_current_index; /* current index */
-        mdl_u16_t is_focus; /* is_focus flag */
-        mdl_u8_t is_show; /* is_show flag */
+        cmw_u16_t id; /* index  of label */
+        cmw_u16_t x; /* x position of label */
+        cmw_u16_t y; /* y position of label */
+        cmw_u16_t width;
+        cmw_u16_t height;
+        cmw_u16_t size; /* size of label */
+        cmw_u16_t max_show_line;    /* 每页最大显示行数 */
+        cmw_u8_t **p_text_list;    /* 由后台传递 */
+        cmw_u16_t first_line_index; /* 首行索引 */
+        cmw_u16_t current_index; /* current index */
+        cmw_u16_t *p_deposit_current_index; /* current index */
+        cmw_u16_t is_focus; /* is_focus flag */
+        cmw_u8_t is_show; /* is_show flag */
         lat_control_focus_shift_t focus_shift;
         lat_page_shift_t page_shift;
         lat_key_event_t key_event;
@@ -344,7 +344,7 @@ struct lat_listbox_control
     {
         void ( *in_ctrl_cb ) ( struct lat_listbox_control *p_listbox );
         void ( *out_ctrl_cb ) ( struct lat_listbox_control *p_listbox );
-        void ( *key_cb ) ( struct lat_listbox_control *p_listbox, mdl_u16_t key_value );
+        void ( *key_cb ) ( struct lat_listbox_control *p_listbox, cmw_u16_t key_value );
     } in_method;
     struct listbox_out_method
     {
@@ -352,7 +352,7 @@ struct lat_listbox_control
         void ( *listbox_index_sub ) ( struct lat_listbox_control *p_listbox );
     } out_method;
 
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_listbox_control lat_listbox_control_t;
@@ -363,15 +363,15 @@ struct lat_progressbar_control
 {
     struct progressbar_in_data
     {
-        mdl_u16_t id; /* index  of label */
-        mdl_u16_t x; /* x position of label */
-        mdl_u16_t y; /* y position of label */
-        mdl_u16_t width;
-        mdl_u16_t height;
-        mdl_u8_t value;
-        mdl_u8_t *p_deposit_value;
-        mdl_u8_t is_focus; /* is_focus flag */
-        mdl_u8_t is_show; /* is_show flag */
+        cmw_u16_t id; /* index  of label */
+        cmw_u16_t x; /* x position of label */
+        cmw_u16_t y; /* y position of label */
+        cmw_u16_t width;
+        cmw_u16_t height;
+        cmw_u8_t value;
+        cmw_u8_t *p_deposit_value;
+        cmw_u8_t is_focus; /* is_focus flag */
+        cmw_u8_t is_show; /* is_show flag */
         lat_control_focus_shift_t focus_shift;
         lat_page_shift_t page_shift;
         lat_key_event_t key_event;
@@ -380,10 +380,10 @@ struct lat_progressbar_control
     {
         void ( *in_ctrl_cb ) ( struct lat_progressbar_control *p_checkbox );
         void ( *out_ctrl_cb ) ( struct lat_progressbar_control *p_checkbox );
-        void ( *key_cb ) ( struct lat_progressbar_control *p_progressbar, mdl_u16_t key_value );
+        void ( *key_cb ) ( struct lat_progressbar_control *p_progressbar, cmw_u16_t key_value );
     } in_method;
 
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_progressbar_control lat_progressbar_control_t;
@@ -394,16 +394,16 @@ struct lat_title_control
 {
     struct title_in_data           /* 应用层不可直接调用的数据 */
     {
-        mdl_u16_t id; /* index  of label */
-        mdl_u16_t x; /* x position of label */
-        mdl_u16_t y; /* y position of label */
-        mdl_u16_t width;
-        mdl_u16_t height;
-        mdl_u16_t size; /* size of label */
-        mdl_u8_t *p_text;
-        mdl_u16_t **p_deposit_text;
-        mdl_u16_t is_focus; /* is_focus flag */
-        mdl_u8_t is_show; /* is_show flag */
+        cmw_u16_t id; /* index  of label */
+        cmw_u16_t x; /* x position of label */
+        cmw_u16_t y; /* y position of label */
+        cmw_u16_t width;
+        cmw_u16_t height;
+        cmw_u16_t size; /* size of label */
+        cmw_u8_t *p_text;
+        cmw_u16_t **p_deposit_text;
+        cmw_u16_t is_focus; /* is_focus flag */
+        cmw_u8_t is_show; /* is_show flag */
         lat_control_focus_shift_t focus_shift;
         lat_page_shift_t page_shift;
         lat_key_event_t key_event;
@@ -413,7 +413,7 @@ struct lat_title_control
     {
         void ( *in_ctrl_cb ) ( struct lat_title_control *p_title );
         void ( *out_ctrl_cb ) ( struct lat_title_control *p_title );
-        void ( *key_cb ) ( struct lat_title_control *p_title, mdl_u16_t key_value );
+        void ( *key_cb ) ( struct lat_title_control *p_title, cmw_u16_t key_value );
     } in_method;
     //  struct title_out_method
     //  {
@@ -421,7 +421,7 @@ struct lat_title_control
     //       void (*listbox_index_sub)(struct lat_listbox_control *p_listbox);
     //   } out_method;
 
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 /**
@@ -432,18 +432,18 @@ struct lat_tabcontrol_page
 {
     struct tabcontrol_page_in_data
     {
-        mdl_u16_t id; /* id */
-        mdl_slist_t button_head; /* button control hook */
-        mdl_slist_t picture_head; /* picture control hook */
-        mdl_slist_t label_head; /* label control hook */
-        mdl_slist_t number_head; /* number control hook */
-        mdl_slist_t checkbox_head;
-        mdl_slist_t progressbar_head;
-        mdl_slist_t listbox_head;
-        mdl_slist_t combo_head;  /* combo control hook */
-        mdl_u8_t is_show; /* is_show flag */
+        cmw_u16_t id; /* id */
+        cmw_slist_t button_head; /* button control hook */
+        cmw_slist_t picture_head; /* picture control hook */
+        cmw_slist_t label_head; /* label control hook */
+        cmw_slist_t number_head; /* number control hook */
+        cmw_slist_t checkbox_head;
+        cmw_slist_t progressbar_head;
+        cmw_slist_t listbox_head;
+        cmw_slist_t combo_head;  /* combo control hook */
+        cmw_u8_t is_show; /* is_show flag */
     } in_data;
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_tabcontrol_page lat_tabcontrol_page_t;
@@ -457,14 +457,14 @@ struct lat_tabcontrol
 {
     struct tabcontrol_in_data
     {
-        mdl_u16_t id; /* id */
-        mdl_u16_t x; /* x position */
-        mdl_u16_t y; /* y position */
-        mdl_u16_t width; /* width */
-        mdl_u16_t height; /* height */
-        mdl_slist_t page_head;
+        cmw_u16_t id; /* id */
+        cmw_u16_t x; /* x position */
+        cmw_u16_t y; /* y position */
+        cmw_u16_t width; /* width */
+        cmw_u16_t height; /* height */
+        cmw_slist_t page_head;
     } in_data;
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_tabcontrol lat_tabcontrol_t;
@@ -477,19 +477,19 @@ struct lat_page
 {
     struct page_in_data
     {
-        mdl_u16_t page_id; /* page id */
-        mdl_u16_t focus_control_id; /* focus id of control*/
-        mdl_u16_t first_control_id; /* first id of control*/
-        mdl_u16_t last_focus_control_id; /* 最后一次聚焦的ID */
-        mdl_slist_t button_head; /* button control hook */
-        mdl_slist_t picture_head; /* picture control hook */
-        mdl_slist_t label_head; /* label control hook */
-        mdl_slist_t number_head; /* number control hook */
-        mdl_slist_t checkbox_head;
-        mdl_slist_t progressbar_head;
-        mdl_slist_t listbox_head;
-        mdl_slist_t combo_head;  /* combo control hook */
-        mdl_slist_t tabcontrol_head; /* group control hook */
+        cmw_u16_t page_id; /* page id */
+        cmw_u16_t focus_control_id; /* focus id of control*/
+        cmw_u16_t first_control_id; /* first id of control*/
+        cmw_u16_t last_focus_control_id; /* 最后一次聚焦的ID */
+        cmw_slist_t button_head; /* button control hook */
+        cmw_slist_t picture_head; /* picture control hook */
+        cmw_slist_t label_head; /* label control hook */
+        cmw_slist_t number_head; /* number control hook */
+        cmw_slist_t checkbox_head;
+        cmw_slist_t progressbar_head;
+        cmw_slist_t listbox_head;
+        cmw_slist_t combo_head;  /* combo control hook */
+        cmw_slist_t tabcontrol_head; /* group control hook */
     } in_data;
     struct page_in_method
     {
@@ -497,7 +497,7 @@ struct lat_page
         void ( *in_page_cb ) ( struct lat_page *p_page );
         void ( *out_page_cb ) ( struct lat_page *p_page );
     } in_method;
-    mdl_slist_t list;
+    cmw_slist_t list;
 };
 
 typedef struct lat_page lat_page_t;
@@ -511,71 +511,71 @@ struct lat_window
 {
     struct window_in_data
     {
-        mdl_slist_t page_head; /* button_head */
+        cmw_slist_t page_head; /* button_head */
         lat_page_t *p_focus_page; /* focus page */
-        mdl_u16_t last_focus_page_id; /* last_focus_page_id */
-        mdl_u16_t key_value; /* u16_key_value */
-        mdl_u16_t last_key_value; /* u16_key_value */
+        cmw_u16_t last_focus_page_id; /* last_focus_page_id */
+        cmw_u16_t key_value; /* u16_key_value */
+        cmw_u16_t last_key_value; /* u16_key_value */
     } in_data;
 
     struct window_in_method
     {
         void ( *clear_display_cb ) ( void );
-        void ( *clear_part_display_cb ) ( mdl_u16_t x, mdl_u16_t y, mdl_u16_t width, mdl_u16_t high );
-        void ( *draw_pixel_cb ) ( mdl_u16_t x, mdl_u16_t y, mdl_u8_t is_solid );
-        void ( *draw_str_cb ) ( mdl_u16_t x, mdl_u16_t y, uint8_t *p_str );
-        void ( *draw_chinese_cb ) ( mdl_u16_t x, mdl_u16_t y, uint8_t *p_chinese, mdl_u8_t size, mdl_u8_t is_focus );
-        void ( *draw_picture_cb ) ( mdl_u16_t x, mdl_u16_t y, mdl_u16_t width, mdl_u16_t high, mdl_u16_t mode, mdl_u8_t *p_picture );
-        void ( *draw_char_cb ) ( mdl_u16_t x, mdl_u16_t y, mdl_u8_t u8_char, mdl_u16_t size, mdl_u16_t mode );
-        mdl_u16_t ( *key_value_recv_cb ) ( struct lat_window *p_window );
+        void ( *clear_part_display_cb ) ( cmw_u16_t x, cmw_u16_t y, cmw_u16_t width, cmw_u16_t high );
+        void ( *draw_pixel_cb ) ( cmw_u16_t x, cmw_u16_t y, cmw_u8_t is_solid );
+        void ( *draw_str_cb ) ( cmw_u16_t x, cmw_u16_t y, uint8_t *p_str );
+        void ( *draw_chinese_cb ) ( cmw_u16_t x, cmw_u16_t y, uint8_t *p_chinese, cmw_u8_t size, cmw_u8_t is_focus );
+        void ( *draw_picture_cb ) ( cmw_u16_t x, cmw_u16_t y, cmw_u16_t width, cmw_u16_t high, cmw_u16_t mode, cmw_u8_t *p_picture );
+        void ( *draw_char_cb ) ( cmw_u16_t x, cmw_u16_t y, cmw_u8_t u8_char, cmw_u16_t size, cmw_u16_t mode );
+        cmw_u16_t ( *key_value_recv_cb ) ( struct lat_window *p_window );
     } in_method;
 
     struct window_out_method
     {
-        mdl_bool_t ( *window_refresh ) ( struct lat_window *p_window );
-        lat_page_t * ( *page_create ) ( struct lat_window *p_window, mdl_u16_t page_id, mdl_u16_t first_control_id );
-        mdl_bool_t ( *add_button_control ) ( struct lat_window *p_window, mdl_u16_t page_id, lat_button_control_t *p_button, mdl_u16_t button_num );
-        mdl_bool_t ( *add_label_control ) ( struct lat_window *p_window, mdl_u16_t page_id, lat_label_control_t *p_label, mdl_u16_t label_num );
-        mdl_bool_t ( *add_picture_control ) ( struct lat_window *p_window, mdl_u16_t page_id, lat_picture_control_t *p_picture, mdl_u16_t picture_num );
-        mdl_bool_t ( *add_number_control ) ( struct lat_window *p_window, mdl_u16_t page_id, lat_number_control_t *p_number, mdl_u16_t number_num );
-        mdl_bool_t ( *add_combo_control ) ( struct lat_window *p_window, mdl_u16_t page_id, lat_combo_control_t *p_combo, mdl_u16_t combo_num );
-        mdl_bool_t ( *add_checkbox_control ) ( struct lat_window *p_window, mdl_u16_t page_id, lat_checkbox_control_t *p_checkbox, mdl_u16_t checkbox_num );
-        mdl_bool_t ( *add_progressbar_control ) ( struct lat_window *p_window, mdl_u16_t page_id, lat_progressbar_control_t *p_progressbar, mdl_u16_t progressbar_num );
-        mdl_bool_t ( *add_listbox_control ) ( struct lat_window *p_window, mdl_u16_t page_id, lat_listbox_control_t *p_listbox, mdl_u16_t listbox_num );
-        mdl_bool_t ( *add_tabcontrol_container ) ( struct lat_window *p_window, mdl_u16_t page_id, lat_tabcontrol_t *p_tabcontrol, mdl_u16_t tabcontrol_num );
-        mdl_bool_t ( *add_tabcontrol_page ) ( struct lat_window *p_window, mdl_u16_t page_id, mdl_u16_t tabcontrol_id, lat_tabcontrol_page_t *p_tabcontrol_page, mdl_u16_t tabcontrol_page_num );
-        mdl_bool_t ( *add_button_tabcontrolpage ) ( struct lat_window *p_window, mdl_u16_t page_id,
-                mdl_u16_t tabcontrol_id, mdl_u16_t tabcontrolpage_id, lat_button_control_t *p_button, mdl_u16_t button_num );
-        mdl_bool_t ( *add_label_tabcontrolpage ) ( struct lat_window *p_window, mdl_u16_t page_id,
-                mdl_u16_t tabcontrol_id, mdl_u16_t tabcontrolpage_id, lat_label_control_t *p_label, mdl_u16_t label_num );
-        mdl_bool_t ( *add_picture_tabcontrolpage ) ( struct lat_window *p_window, mdl_u16_t page_id,
-                mdl_u16_t tabcontrol_id, mdl_u16_t tabcontrolpage_id, lat_picture_control_t *p_picture, mdl_u16_t picture_num );
-        mdl_bool_t ( *add_number_tabcontrolpage ) ( struct lat_window *p_window, mdl_u16_t page_id,
-                mdl_u16_t tabcontrol_id, mdl_u16_t tabcontrolpage_id, lat_number_control_t *p_number, mdl_u16_t number_num );
-        mdl_bool_t ( *add_combo_tabcontrolpage ) ( struct lat_window *p_window, mdl_u16_t page_id,
-                mdl_u16_t tabcontrol_id, mdl_u16_t tabcontrolpage_id, lat_combo_control_t *p_combo, mdl_u16_t combo_num );
-        mdl_bool_t ( *add_checkbox_tabcontrolpage ) ( struct lat_window *p_window, mdl_u16_t page_id,
-                mdl_u16_t tabcontrol_id, mdl_u16_t tabcontrolpage_id, lat_checkbox_control_t *p_checkbox, mdl_u16_t checkbox_num );
-        mdl_bool_t ( *add_progressbar_tabcontrolpage ) ( struct lat_window *p_window, mdl_u16_t page_id,
-                mdl_u16_t tabcontrol_id, mdl_u16_t tabcontrolpage_id, lat_progressbar_control_t *p_progressbar, mdl_u16_t progressbar_num );
-        mdl_bool_t ( *add_listbox_tabcontrolpage ) ( struct lat_window *p_window, mdl_u16_t page_id,
-                mdl_u16_t tabcontrol_id, mdl_u16_t tabcontrolpage_id, lat_listbox_control_t *p_listbox, mdl_u16_t listbox_num );
+        cmw_bool_t ( *window_refresh ) ( struct lat_window *p_window );
+        lat_page_t * ( *page_create ) ( struct lat_window *p_window, cmw_u16_t page_id, cmw_u16_t first_control_id );
+        cmw_bool_t ( *add_button_control ) ( struct lat_window *p_window, cmw_u16_t page_id, lat_button_control_t *p_button, cmw_u16_t button_num );
+        cmw_bool_t ( *add_label_control ) ( struct lat_window *p_window, cmw_u16_t page_id, lat_label_control_t *p_label, cmw_u16_t label_num );
+        cmw_bool_t ( *add_picture_control ) ( struct lat_window *p_window, cmw_u16_t page_id, lat_picture_control_t *p_picture, cmw_u16_t picture_num );
+        cmw_bool_t ( *add_number_control ) ( struct lat_window *p_window, cmw_u16_t page_id, lat_number_control_t *p_number, cmw_u16_t number_num );
+        cmw_bool_t ( *add_combo_control ) ( struct lat_window *p_window, cmw_u16_t page_id, lat_combo_control_t *p_combo, cmw_u16_t combo_num );
+        cmw_bool_t ( *add_checkbox_control ) ( struct lat_window *p_window, cmw_u16_t page_id, lat_checkbox_control_t *p_checkbox, cmw_u16_t checkbox_num );
+        cmw_bool_t ( *add_progressbar_control ) ( struct lat_window *p_window, cmw_u16_t page_id, lat_progressbar_control_t *p_progressbar, cmw_u16_t progressbar_num );
+        cmw_bool_t ( *add_listbox_control ) ( struct lat_window *p_window, cmw_u16_t page_id, lat_listbox_control_t *p_listbox, cmw_u16_t listbox_num );
+        cmw_bool_t ( *add_tabcontrol_container ) ( struct lat_window *p_window, cmw_u16_t page_id, lat_tabcontrol_t *p_tabcontrol, cmw_u16_t tabcontrol_num );
+        cmw_bool_t ( *add_tabcontrol_page ) ( struct lat_window *p_window, cmw_u16_t page_id, cmw_u16_t tabcontrol_id, lat_tabcontrol_page_t *p_tabcontrol_page, cmw_u16_t tabcontrol_page_num );
+        cmw_bool_t ( *add_button_tabcontrolpage ) ( struct lat_window *p_window, cmw_u16_t page_id,
+                cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id, lat_button_control_t *p_button, cmw_u16_t button_num );
+        cmw_bool_t ( *add_label_tabcontrolpage ) ( struct lat_window *p_window, cmw_u16_t page_id,
+                cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id, lat_label_control_t *p_label, cmw_u16_t label_num );
+        cmw_bool_t ( *add_picture_tabcontrolpage ) ( struct lat_window *p_window, cmw_u16_t page_id,
+                cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id, lat_picture_control_t *p_picture, cmw_u16_t picture_num );
+        cmw_bool_t ( *add_number_tabcontrolpage ) ( struct lat_window *p_window, cmw_u16_t page_id,
+                cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id, lat_number_control_t *p_number, cmw_u16_t number_num );
+        cmw_bool_t ( *add_combo_tabcontrolpage ) ( struct lat_window *p_window, cmw_u16_t page_id,
+                cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id, lat_combo_control_t *p_combo, cmw_u16_t combo_num );
+        cmw_bool_t ( *add_checkbox_tabcontrolpage ) ( struct lat_window *p_window, cmw_u16_t page_id,
+                cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id, lat_checkbox_control_t *p_checkbox, cmw_u16_t checkbox_num );
+        cmw_bool_t ( *add_progressbar_tabcontrolpage ) ( struct lat_window *p_window, cmw_u16_t page_id,
+                cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id, lat_progressbar_control_t *p_progressbar, cmw_u16_t progressbar_num );
+        cmw_bool_t ( *add_listbox_tabcontrolpage ) ( struct lat_window *p_window, cmw_u16_t page_id,
+                cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id, lat_listbox_control_t *p_listbox, cmw_u16_t listbox_num );
 
-        void ( *key_value_send_cb ) ( struct lat_window *p_window, mdl_u16_t key_value );
+        void ( *key_value_send_cb ) ( struct lat_window *p_window, cmw_u16_t key_value );
         // 切换 聚焦的控件
-        mdl_bool_t ( *control_focus_shift ) ( struct lat_window *p_window, mdl_u16_t control_id );
+        cmw_bool_t ( *control_focus_shift ) ( struct lat_window *p_window, cmw_u16_t control_id );
         // 切换 聚焦的页面
-        mdl_bool_t ( *page_focus_shift ) ( struct lat_window *p_window, mdl_u16_t page_id );
+        cmw_bool_t ( *page_focus_shift ) ( struct lat_window *p_window, cmw_u16_t page_id );
         // 获取指定页面中指定的控件ID的控件句柄
-        void * ( *get_control_handle ) ( struct lat_window *p_window, mdl_u16_t page_id, mdl_u16_t control_id );
+        void * ( *get_control_handle ) ( struct lat_window *p_window, cmw_u16_t page_id, cmw_u16_t control_id );
         // 显示指定ID页面的指定ID选项卡中指定ID的选项卡页面
-        mdl_bool_t ( *show_tabcontrol_page ) ( struct lat_window  *p_window, mdl_u16_t page_id, mdl_u16_t tabcontrol_id, mdl_u16_t tabcontrolpage_id );
+        cmw_bool_t ( *show_tabcontrol_page ) ( struct lat_window  *p_window, cmw_u16_t page_id, cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id );
         // 为指定页面添加循环调用函数
-        mdl_bool_t (*page_add_loop_cb) ( struct lat_window *p_window,mdl_u16_t page_id,void ( *loop_exec ) ( struct lat_page *p_page ) );
+        cmw_bool_t (*page_add_loop_cb) ( struct lat_window *p_window,cmw_u16_t page_id,void ( *loop_exec ) ( struct lat_page *p_page ) );
         // 为指定页面添加进入调用函数
-        mdl_bool_t (*page_add_in_cb) ( struct lat_window *p_window,mdl_u16_t page_id,void ( *in_exec ) ( struct lat_page *p_page ) );
+        cmw_bool_t (*page_add_in_cb) ( struct lat_window *p_window,cmw_u16_t page_id,void ( *in_exec ) ( struct lat_page *p_page ) );
         // 为指定页面添加退出调用函数
-        mdl_bool_t (*page_add_out_cb) ( struct lat_window *p_window,mdl_u16_t page_id,void ( *out_exec ) ( struct lat_page *p_page ) );
+        cmw_bool_t (*page_add_out_cb) ( struct lat_window *p_window,cmw_u16_t page_id,void ( *out_exec ) ( struct lat_page *p_page ) );
     } out_method;
 };
 
@@ -591,9 +591,9 @@ typedef struct window_in_method lat_config_t;
  *
  * @param p_window
  * @param p_lat_config
- * @return mdl_bool_t
+ * @return cmw_bool_t
  */
-lat_window_t *mdl_lattice_window_create ( lat_config_t *p_lat_config );
+lat_window_t *cmw_lattice_window_create ( lat_config_t *p_lat_config );
 
 
 
@@ -601,9 +601,9 @@ lat_window_t *mdl_lattice_window_create ( lat_config_t *p_lat_config );
 }
 #endif
 
-#endif /* MDL_USING_LAT */
+#endif /* CMW_USING_LAT */
 
-#endif /* __MDL_LAT_H__ */
+#endif /* __CMW_LAT_H__ */
 
 
 
