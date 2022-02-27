@@ -5366,7 +5366,7 @@ static cmw_bool_t lat_show_tabcontrol_page ( lat_window_t *p_window,
     lat_page_t *p_page = NULL;
     cmw_bool_t ret = FALSE;
 
-    if ( p_window == NULL || tabcontrol_id == NULL || tabcontrolpage_id == 0 )
+    if ( p_window == NULL || tabcontrol_id == 0 || tabcontrolpage_id == 0 )
     {
         return ret;
     }

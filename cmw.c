@@ -8,13 +8,14 @@
  * @copyright Copyright (c) 2021
  *
  */
-#include "cmw_def.h"
+#include "cmw_define.h"
 #include "cmw.h"
 #ifdef CMW_USING_RTT
     #include <rtthread.h>
 #endif
 #include "stdlib.h"
 #include <string.h>
+#include <stdio.h>
 /*************************** ring queue api start **********************************/
 
 /**
@@ -231,7 +232,7 @@ static cmw_u32_t rqueue_remain_length ( cmw_ring_queue_t *queue )
  */
 cmw_bool_t cmw_ring_queue_create ( cmw_ring_queue_t *queue, cmw_rqueue_data_t *queue_data, uint32_t queue_length, uint32_t data_size )
 {
-    if ( queue == NULL || queue_data == NULL || queue_length == NULL || data_size == NULL ) { return FALSE; }
+    if ( queue == NULL || queue_data == NULL || queue_length == 0 || data_size == 0 ) { return FALSE; }
 
     queue->in_data.rear = 0;
     queue->in_data.front = 0;

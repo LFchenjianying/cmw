@@ -16,7 +16,7 @@ extern "C" {
 #endif
 
 
-#include "cmw_def.h"
+#include "cmw_define.h"
 
 
 #ifdef CMW_USING_CTRL

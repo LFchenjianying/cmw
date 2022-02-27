@@ -13,7 +13,7 @@
 #ifndef __CMW_LAT_H__
 #define __CMW_LAT_H__
 
-#include "cmw_def.h"
+#include "cmw_define.h"
 
 #if defined(CMW_USING_LAT)
 
