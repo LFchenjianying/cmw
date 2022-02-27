@@ -1,0 +1,24 @@
+
+from building import *
+import rtconfig
+
+cwd = GetCurrentDir()
+
+src = []
+
+src += Split('''
+mdl_ctrl.c
+mdl.c
+mdl_spi.c
+mdl_lat.c
+mdl_rr.c
+''')
+
+if GetDepend(['PKG_USING_MDL_DEMO']):
+    src += Glob("mdl_ctrl.c")
+
+CPPPATH = [cwd]
+
+group = DefineGroup('mdl', src, depend = ['PKG_USING_MDL'], CPPPATH = CPPPATH)
+
+Return('group')

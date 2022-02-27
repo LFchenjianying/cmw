@@ -19,35 +19,37 @@ extern "C" {
 #include "cmw_define.h"
 
 
-#ifdef CMW_USING_CTRL
-	#include "cmw_ctrl.h"
-#endif
-
-#ifdef CMW_USING_SPI
-	#include "cmw_spi.h"
-#endif
-
 #ifdef CMW_USING_LAT
 	#include "cmw_lat.h"
 #endif
 
 #ifdef CMW_USING_TIMESLICE
-	#include "cmw_rr.h"
+	#include "cmw_timeslice.h"
 #endif
 
 #ifdef CMW_USING_SMD
 	#include "cmw_smd.h"
 #endif
 
-#ifdef CMW_USING_BTN
-	#include "cmw_btn.h"
+#ifdef CMW_USING_BUTTON
+	#include "cmw_button.h"
 #endif
 
-#ifdef CMW_USING_LIST
-	#include "cmw_list.h"
+#ifdef CMW_USING_CTRL
+	#include "cmw_ctrl.h"
 #endif
 
-#ifdef CMW_USING_SLIST
+#ifdef CMW_USING_SOFT_SPI
+	#include "cmw_soft_spi.h"
+#endif
+
+#ifdef CMW_USING_SOFT_IIC
+	#include "cmw_soft_iic.h"
+#endif
+
+
+
+#if defined(CMW_USING_LIST) || defined(CMW_USING_SLIST)
 	#include "cmw_list.h"
 #endif
 
