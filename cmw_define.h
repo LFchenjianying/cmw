@@ -32,15 +32,13 @@ extern "C" {
 **************************************************************************/
 #define CMW_USING_LIST
 #define CMW_USING_SLIST
-// #define CMW_USING_QUEUE
-
-// #define CMW_USING_CTRL                      // Ctrl 组件
-// #define CMW_USING_SOFT_SPI                       // SPI 组件
-// #define CMW_USING_SOFT_IIC             
-// #define CMW_USING_LAT                       // LAT 组件
-// #define CMW_USING_SMD
-// #define CMW_USING_BUTTON
-// #define CMW_USING_TIMESLICE
+#define CMW_USING_RQUEUE
+#define CMW_USING_CTRL                      // Ctrl 组件
+#define CMW_USING_SOFT_SPI                       // SPI 组件
+#define CMW_USING_SOFT_IIC             
+#define CMW_USING_SMD
+#define CMW_USING_BUTTON
+#define CMW_USING_TIMESLICE
 #define CMW_USING_LAT
 
 /**************************************************************************/

@@ -18,7 +18,7 @@
     #define M_CMW_SSMD_EXTERN extern
 #endif /* M_BSP_SSMD_EXTERN_DEF */
 
-#include "cmw_define.h"
+#include "cmw.h"
 
 #if defined(CMW_USING_SMD)
 

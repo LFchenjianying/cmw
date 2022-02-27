@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2021
  *
  */
-#define  M_MDL_IIC_EXTERN_DEF
+#define  M_CMW_IIC_EXTERN_DEF
 #include "cmw.h"
 
 #if defined(CMW_USING_SOFT_IIC)
@@ -28,10 +28,10 @@ cmw_inline void i2c_delay2 ( struct cmw_iic_obj *p_obj )
     p_obj->in_method.delay ( p_obj->in_data.u32_sclk_delay );
 }
 
-#define SDA_L(p_obj)          SET_SDA(p_obj, MDL_IIC_WIRE_LOW)
-#define SDA_H(p_obj)          SET_SDA(p_obj, MDL_IIC_WIRE_HIGH)
-#define SCL_L(p_obj)          SET_SCL(p_obj, MDL_IIC_WIRE_LOW)
-#define SCL_H(p_obj)          SET_SCL(p_obj, MDL_IIC_WIRE_HIGH)
+#define SDA_L(p_obj)          SET_SDA(p_obj, CMW_IIC_WIRE_LOW)
+#define SDA_H(p_obj)          SET_SDA(p_obj, CMW_IIC_WIRE_HIGH)
+#define SCL_L(p_obj)          SET_SCL(p_obj, CMW_IIC_WIRE_LOW)
+#define SCL_H(p_obj)          SET_SCL(p_obj, CMW_IIC_WIRE_HIGH)
 
 static void i2c_start ( struct cmw_iic_obj *p_obj )
 {
@@ -141,7 +141,7 @@ static cmw_size_t i2c_send_bytes ( struct cmw_iic_obj *p_obj,
     cmw_size_t bytes = 0;
     const cmw_s8_t *ptr = msg->buf;
     cmw_s32_t count = msg->len;
-    cmw_s16_t ignore_nack = msg->flags & MDL_I2C_IGNORE_NACK;
+    cmw_s16_t ignore_nack = msg->flags & CMW_I2C_IGNORE_NACK;
 
     while ( count > 0 )
     {
@@ -181,7 +181,7 @@ static cmw_err_t i2c_send_ack_or_nack ( struct cmw_iic_obj *p_obj, int ack )
     i2c_delay ( p_obj );
     SCL_H ( p_obj );
     SCL_L ( p_obj );
-    return MDL_EOK;
+    return CMW_EOK;
 }
 
 /**
@@ -217,7 +217,7 @@ static cmw_s32_t i2c_recv_bytes ( struct cmw_iic_obj *p_obj,
         ptr ++;
         count --;
 
-        if ( ! ( flags & MDL_I2C_NO_READ_ACK ) )
+        if ( ! ( flags & CMW_I2C_NO_READ_ACK ) )
         {
             val = i2c_send_ack_or_nack ( p_obj, count );
 
@@ -274,7 +274,7 @@ static cmw_err_t i2c_bit_send_address ( struct cmw_iic_obj *p_obj,
                                         cmw_s32_t retries )
 {
     cmw_s16_t flags = msg->flags;
-    cmw_s16_t ignore_nack = msg->flags & MDL_I2C_IGNORE_NACK;
+    cmw_s16_t ignore_nack = msg->flags & CMW_I2C_IGNORE_NACK;
     cmw_s8_t addr1, addr2;
     cmw_err_t ret;
 
@@ -282,7 +282,7 @@ static cmw_err_t i2c_bit_send_address ( struct cmw_iic_obj *p_obj,
 
     retries = ignore_nack ? 0 : retries;
 
-    if ( flags & MDL_I2C_ADDR_10BIT )
+    if ( flags & CMW_I2C_ADDR_10BIT )
     {
         addr1 = 0xf0 | ( ( msg->addr >> 7 ) & 0x06 );
         addr2 = msg->addr & 0xff;
@@ -290,17 +290,17 @@ static cmw_err_t i2c_bit_send_address ( struct cmw_iic_obj *p_obj,
 
         if ( ( ret != 1 ) && !ignore_nack )
         {
-            return -MDL_EIO;
+            return -CMW_EIO;
         }
 
         ret = i2c_writeb ( p_obj, addr2 );
 
         if ( ( ret != 1 ) && !ignore_nack )
         {
-            return -MDL_EIO;
+            return -CMW_EIO;
         }
 
-        if ( flags & MDL_I2C_RD )
+        if ( flags & CMW_I2C_RD )
         {
             i2c_restart ( p_obj );
             addr1 |= 0x01;
@@ -308,7 +308,7 @@ static cmw_err_t i2c_bit_send_address ( struct cmw_iic_obj *p_obj,
 
             if ( ( ret != 1 ) && !ignore_nack )
             {
-                return -MDL_EIO;
+                return -CMW_EIO;
             }
         }
     }
@@ -317,16 +317,16 @@ static cmw_err_t i2c_bit_send_address ( struct cmw_iic_obj *p_obj,
         /* 7-bit addr */
         addr1 = msg->addr << 1;
 
-        if ( flags & MDL_I2C_RD )
+        if ( flags & CMW_I2C_RD )
         { addr1 |= 1; }
 
         ret = i2c_send_address ( p_obj, addr1, retries );
 
         if ( ( ret != 1 ) && !ignore_nack )
-        { return -MDL_EIO; }
+        { return -CMW_EIO; }
     }
 
-    return MDL_EOK;
+    return CMW_EOK;
 }
 
 /**
@@ -348,9 +348,9 @@ static cmw_size_t i2c_bit_xfer ( struct cmw_iic_obj *p_obj,
     for ( i = 0; i < num; i++ )
     {
         msg = &msgs[i];
-        ignore_nack = msg->flags & MDL_I2C_IGNORE_NACK;
+        ignore_nack = msg->flags & CMW_I2C_IGNORE_NACK;
 
-        if ( ! ( msg->flags & MDL_I2C_NO_START ) )
+        if ( ! ( msg->flags & CMW_I2C_NO_START ) )
         {
             if ( i )
             {
@@ -363,20 +363,20 @@ static cmw_size_t i2c_bit_xfer ( struct cmw_iic_obj *p_obj,
 
             ret = i2c_bit_send_address ( p_obj, msg, 10 );
 
-            if ( ( ret != MDL_EOK ) && !ignore_nack )
+            if ( ( ret != CMW_EOK ) && !ignore_nack )
             {
                 goto out;
             }
         }
 
-        if ( msg->flags & MDL_I2C_RD )
+        if ( msg->flags & CMW_I2C_RD )
         {
             ret = i2c_recv_bytes ( p_obj, msg );
 
             if ( ret < msg->len )
             {
                 if ( ret >= 0 )
-                { ret = -MDL_EIO; }
+                { ret = -CMW_EIO; }
 
                 goto out;
             }
@@ -388,7 +388,7 @@ static cmw_size_t i2c_bit_xfer ( struct cmw_iic_obj *p_obj,
             if ( ret < msg->len )
             {
                 if ( ret >= 0 )
-                { ret = -MDL_ERROR; }
+                { ret = -CMW_ERROR; }
 
                 goto out;
             }
@@ -398,7 +398,7 @@ static cmw_size_t i2c_bit_xfer ( struct cmw_iic_obj *p_obj,
     ret = i;
 out:
 
-    if ( ! ( msg->flags & MDL_I2C_NO_STOP ) )
+    if ( ! ( msg->flags & CMW_I2C_NO_STOP ) )
     {
         i2c_stop ( p_obj );
     }

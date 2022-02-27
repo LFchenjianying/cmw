@@ -16,7 +16,7 @@
 #else 
 	#define M_CMW_SPI_EXTERN extern
 #endif /* M_BSP_SPI_EXTERN_DEF */
-#include "cmw_define.h"
+#include "cmw.h"
 
 #if defined(CMW_USING_SPI)
 

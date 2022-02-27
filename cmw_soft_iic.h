@@ -17,7 +17,7 @@
 	#define M_CMW_IIC_EXTERN extern
 #endif /* M_CMW_IIC_EXTERN_DEF */
 
-#include "cmw_define.h"
+#include "cmw.h"
 
 
 

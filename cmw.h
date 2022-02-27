@@ -27,7 +27,12 @@ extern "C" {
 	#include "cmw_timeslice.h"
 #endif
 
-#ifdef CMW_USING_SMD
+
+#ifdef CMW_USING_RQUEUE
+	#include "cmw_queue.h"
+#endif
+
+#ifdef CMW_USING_SMD          // 因为SMD使用了RQUEUE所以 必须先包含cmw_queue.h这个头文件
 	#include "cmw_smd.h"
 #endif
 
@@ -53,9 +58,6 @@ extern "C" {
 	#include "cmw_list.h"
 #endif
 
-#ifdef CMW_USING_QUEUE
-	#include "cmw_queue.h"
-#endif
 
 
 

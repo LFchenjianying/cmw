@@ -13,7 +13,7 @@
 #ifndef __CMW_TIMESLICE_H__
 #define __CMW_TIMESLICE_H__
 
-#include "cmw_define.h"
+#include "cmw.h"
 
 #ifdef __cplusplus
 extern "C" {
