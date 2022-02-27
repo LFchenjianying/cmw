@@ -44,12 +44,12 @@ static cmw_u32_t ssmd_stepper ( ssmd_t *p_ssmd )
         if ( p_ssmd->run_state.is_brake == TRUE ||
                 p_ssmd->run_state.is_enable == FALSE )
         {
-						 p_ssmd->run_state.is_running = FALSE;
+            p_ssmd->run_state.is_running = FALSE;
             p_ssmd->run_state.speed = p_ssmd->config.start_stop_speed;  // 立刻重置为起始速度
-						// 清空缓冲垫
-						p_ssmd->run_state.remain_distance = 0;
-						p_ssmd->segment_queue.out_method.reset(&p_ssmd->segment_queue);
-						p_ssmd->plan_block_queue.out_method.reset(&p_ssmd->plan_block_queue);
+            // 清空缓冲垫
+            p_ssmd->run_state.remain_distance = 0;
+            p_ssmd->segment_queue.out_method.reset ( &p_ssmd->segment_queue );
+            p_ssmd->plan_block_queue.out_method.reset ( &p_ssmd->plan_block_queue );
             return 0;
         }
 
@@ -172,7 +172,6 @@ static cmw_bool_t ssmd_segment ( ssmd_t *p_ssmd, struct ssmd_block_st *p_temp_bl
         //        {
         //            acc_pluse_count -= 1;
         //        }
-
         segment_pluse_count =  p_temp_block->distance / 3;
         segment_1.dir = p_temp_block->dir;
         segment_2.dir = p_temp_block->dir;
@@ -215,8 +214,7 @@ static cmw_bool_t ssmd_prepare_segment ( ssmd_t *p_ssmd )
 
     if ( p_ssmd == NULL ) { return FALSE; }
 
-		
-    if ( p_ssmd->run_state.is_enable == FALSE || p_ssmd->run_state.is_brake == TRUE)
+    if ( p_ssmd->run_state.is_enable == FALSE || p_ssmd->run_state.is_brake == TRUE )
     {
         p_ssmd->config.disable();
         return FALSE;
@@ -226,8 +224,6 @@ static cmw_bool_t ssmd_prepare_segment ( ssmd_t *p_ssmd )
         p_ssmd->config.enable();
     }
 
-
-		
     // 获取运动控制块
     if ( p_ssmd->plan_block_queue.out_method.dequeue ( &p_ssmd->plan_block_queue, &temp_block ) == FALSE )
     {
@@ -519,7 +515,7 @@ cmw_bool_t cmw_ssmd_init ( ssmd_t *p_ssmd, struct ssmd_config_st config )
     cmw_ring_queue_create ( &p_ssmd->plan_block_queue, ( cmw_rqueue_data_t * ) p_ssmd->block_buffer, SSMD_PLAN_BLOCK_LENGTH, sizeof ( struct ssmd_block_st ) );
     cmw_ring_queue_create ( &p_ssmd->segment_queue, ( cmw_rqueue_data_t * ) p_ssmd->segment_buffer, SSMD_SEGMENT_LENGTH, sizeof ( struct ssmd_segment_st ) );
 
-    if (    config.pluse_io_high == NULL ||
+    if ( config.pluse_io_high == NULL ||
             config.pluse_io_low  == NULL ||
             config.dir_forward   == NULL ||
             config.dir_reverse   == NULL  ||

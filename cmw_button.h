@@ -1,14 +1,14 @@
 /**
  * @file cmw_key.h
  * @author {chenjianying} ({LFchenjianying@outlook.com})
- * 
+ *
  * @brief 通用按键驱动
- *          
+ *
  * @version 0.1
  * @date 2021-08-16
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #ifndef __CMW_BUTTON_H__
@@ -44,13 +44,13 @@ typedef enum
     CMW_BTN_PRESS_NONE,
 } cmw_button_event_t;
 
-typedef void (*button_response_callback)(void*);
+typedef void ( *button_response_callback ) ( void * );
 
 typedef struct cmw_button
 {
-    struct cmw_button* next;
+    struct cmw_button *next;
 
-    cmw_u8_t  (*usr_button_read)(void *);
+    cmw_u8_t ( *usr_button_read ) ( void * );
     button_response_callback  cb;
 
     cmw_u16_t scan_cnt;
@@ -70,9 +70,9 @@ typedef struct cmw_button
 
 
 
-cmw_s32_t flex_button_register(cmw_button_t *button);
-cmw_button_event_t flex_button_event_read(cmw_button_t* button);
-cmw_u8_t flex_button_scan(void);
+cmw_s32_t flex_button_register ( cmw_button_t *button );
+cmw_button_event_t flex_button_event_read ( cmw_button_t *button );
+cmw_u8_t flex_button_scan ( void );
 
 #endif
 

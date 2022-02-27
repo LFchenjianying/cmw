@@ -50,16 +50,16 @@ typedef struct cmw_ctrl_obj
     } out_data;
     struct ctrl_in_method
     {
-        cmw_u32_t (*f_actuator_1)(cmw_u32_t u32InOp, void *pInPar);            /* 一级执行结构,返回Op，Op==0标识无动作 */
-        cmw_u32_t (*f_actuator_2)(cmw_u32_t u32InOp, void *pInPar);            /* 二级执行结构,返回Op，Op==0标识无动作 */
-        cmw_u32_t (*f_actuator_3)(cmw_u32_t u32InOp, void *pInPar);            /* 三级执行结构,返回Op，Op==0标识无动作 */
-        cmw_u32_t (*f_ctrl_condition[C_CMW_CTRL_LEVEL_MAX])(void *p_input_par);   /* 函数指针数组，返回Op，Op==0标识无动作 */
+        cmw_u32_t ( *f_actuator_1 ) ( cmw_u32_t u32InOp, void *pInPar );       /* 一级执行结构,返回Op，Op==0标识无动作 */
+        cmw_u32_t ( *f_actuator_2 ) ( cmw_u32_t u32InOp, void *pInPar );       /* 二级执行结构,返回Op，Op==0标识无动作 */
+        cmw_u32_t ( *f_actuator_3 ) ( cmw_u32_t u32InOp, void *pInPar );       /* 三级执行结构,返回Op，Op==0标识无动作 */
+        cmw_u32_t ( *f_ctrl_condition[C_CMW_CTRL_LEVEL_MAX] ) ( void *p_input_par ); /* 函数指针数组，返回Op，Op==0标识无动作 */
     } in_method;
     struct ctrl_out_method
     {
-        void (*f_loop)(struct cmw_ctrl_obj *pstCtrlObj);
-        void (*f_remodify_input_par)(struct cmw_ctrl_obj *pstCtrlObj, void *pInPar);
-        void (*f_add_condition)(struct cmw_ctrl_obj *pstCtrlObj, cmw_u32_t u32Priority, cmw_u32_t (*f_ctrl_condition)(void *p_input_par));
+        void ( *f_loop ) ( struct cmw_ctrl_obj *pstCtrlObj );
+        void ( *f_remodify_input_par ) ( struct cmw_ctrl_obj *pstCtrlObj, void *pInPar );
+        void ( *f_add_condition ) ( struct cmw_ctrl_obj *pstCtrlObj, cmw_u32_t u32Priority, cmw_u32_t ( *f_ctrl_condition ) ( void *p_input_par ) );
 
     } out_method;
 } cmw_ctrl_obj_st;
@@ -77,10 +77,10 @@ typedef struct cmw_ctrl_obj
  * @param f_actuator_2
  * @param f_actuator_3
  */
-void cmw_ctrl_obj_config(cmw_ctrl_obj_st *pstCtrlObj, void *pInPar,
-                         cmw_u32_t (*f_actuator_1)(cmw_u32_t u32InOp, void *pInPar),
-                         cmw_u32_t (*f_actuator_2)(cmw_u32_t u32InOp, void *pInPar),
-                         cmw_u32_t (*f_actuator_3)(cmw_u32_t u32InOp, void *pInPar));
+void cmw_ctrl_obj_config ( cmw_ctrl_obj_st *pstCtrlObj, void *pInPar,
+                           cmw_u32_t ( *f_actuator_1 ) ( cmw_u32_t u32InOp, void *pInPar ),
+                           cmw_u32_t ( *f_actuator_2 ) ( cmw_u32_t u32InOp, void *pInPar ),
+                           cmw_u32_t ( *f_actuator_3 ) ( cmw_u32_t u32InOp, void *pInPar ) );
 
 
 

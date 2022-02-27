@@ -31,20 +31,21 @@
  * @brief Construct a new cmw list head object
  *
  */
-static CMW_LIST_HEAD(timeslice_task_list);
+static CMW_LIST_HEAD ( timeslice_task_list );
 
 /**
  * @brief 时间片轮转调度函数,需要轮训调用
  *
  */
-void cmw_timeslice_exec(void)
+void cmw_timeslice_exec ( void )
 {
     cmw_list_t *node;
     cmw_timeslice_t *task;
-    cmw_list_for_each(node, &timeslice_task_list)
+    cmw_list_for_each ( node, &timeslice_task_list )
     {
-        task = cmw_list_entry(node, cmw_timeslice_t, list);
-        if (task->is_run == RR_TASK_RUN)
+        task = cmw_list_entry ( node, cmw_timeslice_t, list );
+
+        if ( task->is_run == RR_TASK_RUN )
         {
             task->task_cb();
             task->is_run = RR_TASK_STOP;
@@ -56,17 +57,19 @@ void cmw_timeslice_exec(void)
  * @brief 时间片基本时基,需要定时调用,作为时间片的基本时间单位
  *
  */
-void cmw_timeslice_tick(void)
+void cmw_timeslice_tick ( void )
 {
     cmw_list_t *node;
     cmw_timeslice_t *task;
-    cmw_list_for_each(node, &timeslice_task_list)
+    cmw_list_for_each ( node, &timeslice_task_list )
     {
-        task = cmw_list_entry(node, cmw_timeslice_t, list);
-        if (task->timer != 0)
+        task = cmw_list_entry ( node, cmw_timeslice_t, list );
+
+        if ( task->timer != 0 )
         {
             task->timer--;
-            if (task->timer == 0)
+
+            if ( task->timer == 0 )
             {
                 task->is_run = RR_TASK_RUN;
                 task->timer = task->len;
@@ -80,9 +83,9 @@ void cmw_timeslice_tick(void)
  *
  * @return cmw_u32_t
  */
-cmw_u32_t cmw_timeslice_get_task_num(void)
+cmw_u32_t cmw_timeslice_get_task_num ( void )
 {
-    return cmw_list_len(&timeslice_task_list);
+    return cmw_list_len ( &timeslice_task_list );
 }
 
 /**
@@ -93,7 +96,7 @@ cmw_u32_t cmw_timeslice_get_task_num(void)
  * @param id 任务ID
  * @param timeslice_len 分配的时间片长度(延时长度)
  */
-void cmw_timeslice_task_init(cmw_timeslice_t *obj, void (*task_cb)(void), cmw_u32_t id, cmw_u32_t timeslice_len)
+void cmw_timeslice_task_init ( cmw_timeslice_t *obj, void ( *task_cb ) ( void ), cmw_u32_t id, cmw_u32_t timeslice_len )
 {
     obj->id = id;
     obj->is_run = RR_TASK_STOP;
@@ -107,9 +110,9 @@ void cmw_timeslice_task_init(cmw_timeslice_t *obj, void (*task_cb)(void), cmw_u3
  *
  * @param obj
  */
-void cmw_timeslice_task_add(cmw_timeslice_t *obj)
+void cmw_timeslice_task_add ( cmw_timeslice_t *obj )
 {
-    cmw_list_insert_before(&timeslice_task_list, &obj->list);
+    cmw_list_insert_before ( &timeslice_task_list, &obj->list );
 }
 
 /**
@@ -118,15 +121,16 @@ void cmw_timeslice_task_add(cmw_timeslice_t *obj)
  * @param obj
  * @return cmw_u8_t
  */
-cmw_u8_t cmw_timeslice_task_is_exist(cmw_timeslice_t *obj)
+cmw_u8_t cmw_timeslice_task_is_exist ( cmw_timeslice_t *obj )
 {
     cmw_u8_t isexist = 0;
     cmw_list_t *node;
     cmw_timeslice_t *task;
-    cmw_list_for_each(node, &timeslice_task_list)
+    cmw_list_for_each ( node, &timeslice_task_list )
     {
-        task = cmw_list_entry(node, cmw_timeslice_t, list);
-        if (obj->id == task->id)
+        task = cmw_list_entry ( node, cmw_timeslice_t, list );
+
+        if ( obj->id == task->id )
         { isexist = 1; }
     }
     return isexist;
@@ -137,10 +141,10 @@ cmw_u8_t cmw_timeslice_task_is_exist(cmw_timeslice_t *obj)
  *
  * @param obj
  */
-void cmw_timeslice_task_delete(cmw_timeslice_t *obj)
+void cmw_timeslice_task_delete ( cmw_timeslice_t *obj )
 {
-    if (cmw_timeslice_task_is_exist(obj))
-    { cmw_list_remove(&obj->list); }
+    if ( cmw_timeslice_task_is_exist ( obj ) )
+    { cmw_list_remove ( &obj->list ); }
     else
     { return; }
 }
@@ -151,7 +155,7 @@ void cmw_timeslice_task_delete(cmw_timeslice_t *obj)
  * @param obj
  * @return cmw_u32_t
  */
-cmw_u32_t cmw_timeslice_get_task_timeslice_len(cmw_timeslice_t *obj)
+cmw_u32_t cmw_timeslice_get_task_timeslice_len ( cmw_timeslice_t *obj )
 {
     return obj->len;
 }
