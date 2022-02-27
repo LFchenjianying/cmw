@@ -22,13 +22,13 @@
       "version": "v1.0.0",
       "URL": "https://github.com/LFchenjianying/cmw.git",
       "filename": "cmw-1.0.0.zip",
-      "VER_SHA": "Cjy"
+      "VER_SHA": "master"
     },
     {
       "version": "latest",
       "URL": "https://github.com/LFchenjianying/cmw.git",
       "filename": "cmw.zip",
-      "VER_SHA": "Cjy"
+      "VER_SHA": "master"
     }
   ]
 }
