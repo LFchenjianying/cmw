@@ -9,10 +9,9 @@
  *
  */
 
-#include "cmw_lat.h"
-#include <math.h>
-#include <stdarg.h>
-#include <string.h>
+#include "cmw.h"
+
+#ifdef CMW_USING_LAT
 
 #define LAT_POINT_SOLID     (1u)
 #define LAT_POINT_EMPTY     (0u)
@@ -2972,7 +2971,8 @@ static void lat_button_focus_deposit_process ( lat_window_t *p_window,
             if ( p_button->in_data.page_shift.up )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_button->in_data.page_shift.up );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -2980,7 +2980,6 @@ static void lat_button_focus_deposit_process ( lat_window_t *p_window,
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.first_control_id );
                 }
-                
             }
             else
             {
@@ -3002,7 +3001,8 @@ static void lat_button_focus_deposit_process ( lat_window_t *p_window,
             if ( p_button->in_data.page_shift.down )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_button->in_data.page_shift.down );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3031,7 +3031,8 @@ static void lat_button_focus_deposit_process ( lat_window_t *p_window,
             if ( p_button->in_data.page_shift.left )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_button->in_data.page_shift.left );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3060,7 +3061,8 @@ static void lat_button_focus_deposit_process ( lat_window_t *p_window,
             if ( p_button->in_data.page_shift.right )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_button->in_data.page_shift.right );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3089,7 +3091,8 @@ static void lat_button_focus_deposit_process ( lat_window_t *p_window,
             if ( p_button->in_data.page_shift.enter )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_button->in_data.page_shift.enter );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3118,7 +3121,8 @@ static void lat_button_focus_deposit_process ( lat_window_t *p_window,
             if ( p_button->in_data.page_shift.esc )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_button->in_data.page_shift.esc );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3166,7 +3170,8 @@ static void lat_number_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_number->in_data.page_shift.up )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_number->in_data.page_shift.up );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3195,7 +3200,8 @@ static void lat_number_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_number->in_data.page_shift.down )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_number->in_data.page_shift.down );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3224,7 +3230,8 @@ static void lat_number_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_number->in_data.page_shift.left )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_number->in_data.page_shift.left );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3253,7 +3260,8 @@ static void lat_number_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_number->in_data.page_shift.right )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_number->in_data.page_shift.right );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3288,7 +3296,8 @@ static void lat_number_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_number->in_data.page_shift.esc )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_number->in_data.page_shift.esc );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3341,12 +3350,14 @@ static void lat_number_edit_key_deposit_process ( lat_window_t *p_window,
         case LAT_KEY_LEFT:
         {
             p_number->out_method.number_focus_left_shift ( p_number );
+
             if ( p_number->in_data.number_focus_position > ( p_number->in_data.integer_digits + p_number->in_data.decimal_digits ) )
             {
                 p_number->in_data.number_focus_position = ( p_number->in_data.integer_digits + p_number->in_data.decimal_digits );
-                if (p_number->in_data.focus_shift.left)
+
+                if ( p_number->in_data.focus_shift.left )
                 {
-                    p_window->out_method.control_focus_shift(p_window, p_number->in_data.focus_shift.left);
+                    p_window->out_method.control_focus_shift ( p_window, p_number->in_data.focus_shift.left );
                 }
             }
         }
@@ -3355,18 +3366,18 @@ static void lat_number_edit_key_deposit_process ( lat_window_t *p_window,
         case LAT_KEY_RIGHT:
         {
             p_number->out_method.number_focus_right_shift ( p_number );
-            if (p_number->in_data.number_focus_position == 0)
+
+            if ( p_number->in_data.number_focus_position == 0 )
             {
-                if (p_number->in_data.focus_shift.right)
+                if ( p_number->in_data.focus_shift.right )
                 {
-                    p_window->out_method.control_focus_shift(p_window, p_number->in_data.focus_shift.right);
+                    p_window->out_method.control_focus_shift ( p_window, p_number->in_data.focus_shift.right );
                 }
                 else
                 {
                     p_number->in_data.number_focus_position = 1;
                 }
             }
-
         }
         break;
 
@@ -3426,7 +3437,8 @@ static void lat_picture_key_deposit_process ( lat_window_t *p_window,
             if ( p_picture->in_data.page_shift.up )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_picture->in_data.page_shift.up );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3455,7 +3467,8 @@ static void lat_picture_key_deposit_process ( lat_window_t *p_window,
             if ( p_picture->in_data.page_shift.down )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_picture->in_data.page_shift.down );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3484,7 +3497,8 @@ static void lat_picture_key_deposit_process ( lat_window_t *p_window,
             if ( p_picture->in_data.page_shift.left )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_picture->in_data.page_shift.left );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3513,7 +3527,8 @@ static void lat_picture_key_deposit_process ( lat_window_t *p_window,
             if ( p_picture->in_data.page_shift.right )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_picture->in_data.page_shift.right );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3542,7 +3557,8 @@ static void lat_picture_key_deposit_process ( lat_window_t *p_window,
             if ( p_picture->in_data.page_shift.enter )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_picture->in_data.page_shift.enter );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3571,7 +3587,8 @@ static void lat_picture_key_deposit_process ( lat_window_t *p_window,
             if ( p_picture->in_data.page_shift.esc )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_picture->in_data.page_shift.esc );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3619,7 +3636,8 @@ static void lat_label_key_deposit_process ( lat_window_t *p_window,
             if ( p_label->in_data.page_shift.up )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_label->in_data.page_shift.up );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3648,7 +3666,8 @@ static void lat_label_key_deposit_process ( lat_window_t *p_window,
             if ( p_label->in_data.page_shift.down )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_label->in_data.page_shift.down );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3677,7 +3696,8 @@ static void lat_label_key_deposit_process ( lat_window_t *p_window,
             if ( p_label->in_data.page_shift.left )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_label->in_data.page_shift.left );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3706,7 +3726,8 @@ static void lat_label_key_deposit_process ( lat_window_t *p_window,
             if ( p_label->in_data.page_shift.right )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_label->in_data.page_shift.right );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3735,7 +3756,8 @@ static void lat_label_key_deposit_process ( lat_window_t *p_window,
             if ( p_label->in_data.page_shift.enter )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_label->in_data.page_shift.enter );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3764,7 +3786,8 @@ static void lat_label_key_deposit_process ( lat_window_t *p_window,
             if ( p_label->in_data.page_shift.esc )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_label->in_data.page_shift.esc );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3807,7 +3830,8 @@ static void lat_combo_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_combo->in_data.page_shift.up )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_combo->in_data.page_shift.up );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3831,7 +3855,8 @@ static void lat_combo_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_combo->in_data.page_shift.down )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_combo->in_data.page_shift.down );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3855,7 +3880,8 @@ static void lat_combo_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_combo->in_data.page_shift.left )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_combo->in_data.page_shift.left );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3879,7 +3905,8 @@ static void lat_combo_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_combo->in_data.page_shift.right )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_combo->in_data.page_shift.right );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -3911,7 +3938,8 @@ static void lat_combo_focus_key_deposit_process ( lat_window_t *p_window,
             if ( p_combo->in_data.page_shift.esc )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_combo->in_data.page_shift.esc );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4060,7 +4088,8 @@ static void lat_checkbox_key_deposit_process ( lat_window_t *p_window,
             if ( p_checkbox->in_data.page_shift.up )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_checkbox->in_data.page_shift.up );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4089,7 +4118,8 @@ static void lat_checkbox_key_deposit_process ( lat_window_t *p_window,
             if ( p_checkbox->in_data.page_shift.down )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_checkbox->in_data.page_shift.down );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4116,7 +4146,8 @@ static void lat_checkbox_key_deposit_process ( lat_window_t *p_window,
             if ( p_checkbox->in_data.page_shift.left )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_checkbox->in_data.page_shift.left );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4189,7 +4220,8 @@ static void lat_checkbox_key_deposit_process ( lat_window_t *p_window,
             if ( p_checkbox->in_data.focus_shift.esc )
             {
                 p_window->out_method.control_focus_shift ( p_window, p_checkbox->in_data.focus_shift.esc );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4237,7 +4269,8 @@ static void lat_progressbar_key_deposit_process ( lat_window_t *p_window,
             if ( p_progressbar->in_data.page_shift.up )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_progressbar->in_data.page_shift.up );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4266,7 +4299,8 @@ static void lat_progressbar_key_deposit_process ( lat_window_t *p_window,
             if ( p_progressbar->in_data.page_shift.down )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_progressbar->in_data.page_shift.down );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4295,7 +4329,8 @@ static void lat_progressbar_key_deposit_process ( lat_window_t *p_window,
             if ( p_progressbar->in_data.page_shift.left )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_progressbar->in_data.page_shift.left );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4324,7 +4359,8 @@ static void lat_progressbar_key_deposit_process ( lat_window_t *p_window,
             if ( p_progressbar->in_data.page_shift.right )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_progressbar->in_data.page_shift.right );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4353,7 +4389,8 @@ static void lat_progressbar_key_deposit_process ( lat_window_t *p_window,
             if ( p_progressbar->in_data.page_shift.enter )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_progressbar->in_data.page_shift.enter );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4382,7 +4419,8 @@ static void lat_progressbar_key_deposit_process ( lat_window_t *p_window,
             if ( p_progressbar->in_data.page_shift.esc )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_progressbar->in_data.page_shift.esc );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4481,7 +4519,8 @@ static void lat_listbox_key_deposit_process ( lat_window_t *p_window, struct lat
             if ( p_listbox->in_data.page_shift.left )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_listbox->in_data.page_shift.left );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4510,7 +4549,8 @@ static void lat_listbox_key_deposit_process ( lat_window_t *p_window, struct lat
             if ( p_listbox->in_data.page_shift.right )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_listbox->in_data.page_shift.right );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4539,7 +4579,8 @@ static void lat_listbox_key_deposit_process ( lat_window_t *p_window, struct lat
             if ( p_listbox->in_data.page_shift.enter && strlen ( p_listbox->in_data.p_text_list[p_listbox->in_data.current_index] ) )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_listbox->in_data.page_shift.enter );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -4568,7 +4609,8 @@ static void lat_listbox_key_deposit_process ( lat_window_t *p_window, struct lat
             if ( p_listbox->in_data.page_shift.esc )
             {
                 p_window->out_method.page_focus_shift ( p_window, p_listbox->in_data.page_shift.esc );
-                if (p_window->in_data.p_focus_page->in_data.last_focus_control_id)
+
+                if ( p_window->in_data.p_focus_page->in_data.last_focus_control_id )
                 {
                     p_window->out_method.control_focus_shift ( p_window, p_window->in_data.p_focus_page->in_data.last_focus_control_id );
                 }
@@ -5716,9 +5758,9 @@ static void lat_number_value_add ( struct lat_number_control *p_number )
             p_number->in_method.value_change ( p_number );
         }
 
-        if (p_number->in_data.is_limit)
+        if ( p_number->in_data.is_limit )
         {
-            if (p_number->in_data.max_value < p_number->in_data.value)
+            if ( p_number->in_data.max_value < p_number->in_data.value )
             {
                 p_number->in_data.value = p_number->in_data.max_value;
             }
@@ -6838,9 +6880,7 @@ static uint16_t lat_key_recv ( lat_window_t *window )
 {
     uint16_t key;
     key = window->in_data.key_value;
-    
     window->in_data.last_key_value = window->in_data.key_value;
-
     window->in_data.key_value = 0;
     return key;
 }
@@ -7091,7 +7131,7 @@ static cmw_bool_t lat_ctrl_in ( lat_window_t *p_window, uint16_t control_id )
     {
         p_number->in_data.is_focus = TRUE;
 
-        if (p_window->in_data.last_key_value == LAT_KEY_LEFT)
+        if ( p_window->in_data.last_key_value == LAT_KEY_LEFT )
         {
             p_number->in_data.number_focus_position = 1;
         }
@@ -7099,8 +7139,6 @@ static cmw_bool_t lat_ctrl_in ( lat_window_t *p_window, uint16_t control_id )
         {
             p_number->in_data.number_focus_position = p_number->in_data.integer_digits + p_number->in_data.decimal_digits;
         }
-        
-
         if ( p_number->in_method.in_ctrl_cb )
         {
             p_number->in_method.in_ctrl_cb ( p_number );
@@ -7221,7 +7259,7 @@ static cmw_bool_t lat_shift_control ( lat_window_t *p_window, uint16_t control_i
 
         if (p_window->in_data.p_focus_page->in_data.focus_control_id != p_window->in_data.p_focus_page->in_data.last_focus_control_id)
         {
-            p_window->in_data.p_focus_page->in_data.last_focus_control_id = p_window->in_data.p_focus_page->in_data.focus_control_id;
+             p_window->in_data.p_focus_page->in_data.last_focus_control_id = p_window->in_data.p_focus_page->in_data.focus_control_id; 
         }
     }
 
@@ -7294,5 +7332,5 @@ lat_window_t *cmw_lattice_window_create ( lat_config_t *p_lat_config )
 }
 
 
-
+#endif
 

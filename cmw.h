@@ -43,6 +43,20 @@ extern "C" {
 	#include "cmw_btn.h"
 #endif
 
+#ifdef CMW_USING_LIST
+	#include "cmw_list.h"
+#endif
+
+#ifdef CMW_USING_SLIST
+	#include "cmw_list.h"
+#endif
+
+#ifdef CMW_USING_QUEUE
+	#include "cmw_queue.h"
+#endif
+
+
+
 #ifdef __cplusplus
 }
 #endif

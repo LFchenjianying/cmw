@@ -17,6 +17,8 @@
 
 #if defined(CMW_USING_LAT)
 
+#include "cmw_list.h"               // lat 模块依赖与链表实现
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -571,11 +573,11 @@ struct lat_window
         // 显示指定ID页面的指定ID选项卡中指定ID的选项卡页面
         cmw_bool_t ( *show_tabcontrol_page ) ( struct lat_window  *p_window, cmw_u16_t page_id, cmw_u16_t tabcontrol_id, cmw_u16_t tabcontrolpage_id );
         // 为指定页面添加循环调用函数
-        cmw_bool_t (*page_add_loop_cb) ( struct lat_window *p_window,cmw_u16_t page_id,void ( *loop_exec ) ( struct lat_page *p_page ) );
+        cmw_bool_t ( *page_add_loop_cb ) ( struct lat_window *p_window, cmw_u16_t page_id, void ( *loop_exec ) ( struct lat_page *p_page ) );
         // 为指定页面添加进入调用函数
-        cmw_bool_t (*page_add_in_cb) ( struct lat_window *p_window,cmw_u16_t page_id,void ( *in_exec ) ( struct lat_page *p_page ) );
+        cmw_bool_t ( *page_add_in_cb ) ( struct lat_window *p_window, cmw_u16_t page_id, void ( *in_exec ) ( struct lat_page *p_page ) );
         // 为指定页面添加退出调用函数
-        cmw_bool_t (*page_add_out_cb) ( struct lat_window *p_window,cmw_u16_t page_id,void ( *out_exec ) ( struct lat_page *p_page ) );
+        cmw_bool_t ( *page_add_out_cb ) ( struct lat_window *p_window, cmw_u16_t page_id, void ( *out_exec ) ( struct lat_page *p_page ) );
     } out_method;
 };
 
