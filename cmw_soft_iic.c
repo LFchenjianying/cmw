@@ -1,7 +1,7 @@
 /**
  * @file cmw_iic.c
  * @author {chenjianying} ({LFchenjianying@outlook.com})
- * @brief
+ * @brief  只实现i2c主机功能
  * @version 0.1
  * @date 2021-06-10
  *
@@ -16,7 +16,7 @@
 #define SET_SDA(p_obj,val)   p_obj->in_method.set_sda(val)
 #define SET_SCL(p_obj,val)   p_obj->in_method.set_scl(val)
 #define GET_SDA(p_obj)        p_obj->in_method.get_sda()
-#define GET_SCL(p_obj)        p_obj->in_method.get_scl()
+
 
 cmw_inline void i2c_delay ( struct cmw_iic_obj *p_obj )
 {
@@ -33,6 +33,11 @@ cmw_inline void i2c_delay2 ( struct cmw_iic_obj *p_obj )
 #define SCL_L(p_obj)          SET_SCL(p_obj, CMW_IIC_WIRE_LOW)
 #define SCL_H(p_obj)          SET_SCL(p_obj, CMW_IIC_WIRE_HIGH)
 
+/**
+ * @brief 起始信号
+ * 
+ * @param p_obj 
+ */
 static void i2c_start ( struct cmw_iic_obj *p_obj )
 {
     SDA_L ( p_obj );
@@ -40,6 +45,11 @@ static void i2c_start ( struct cmw_iic_obj *p_obj )
     SCL_L ( p_obj );
 }
 
+/**
+ * @brief 重新发送起始信号
+ * 
+ * @param p_obj 
+ */
 static void i2c_restart ( struct cmw_iic_obj *p_obj )
 {
     SDA_H ( p_obj );
@@ -50,6 +60,11 @@ static void i2c_restart ( struct cmw_iic_obj *p_obj )
     SCL_L ( p_obj );
 }
 
+/**
+ * @brief 停止信号
+ * 
+ * @param p_obj 
+ */
 static void i2c_stop ( struct cmw_iic_obj *p_obj )
 {
     SDA_L ( p_obj );
@@ -60,13 +75,25 @@ static void i2c_stop ( struct cmw_iic_obj *p_obj )
     i2c_delay2 ( p_obj );
 }
 
+/**
+ * @brief 等待应答
+ * 
+ * @param p_obj 
+ * @return cmw_inline 
+ */
 cmw_inline cmw_bool_t i2c_waitack ( struct cmw_iic_obj *p_obj )
 {
+    cmw_u8_t i = 3;
+
     cmw_bool_t ack;
     SDA_H ( p_obj );
     i2c_delay ( p_obj );
-    SCL_H ( p_obj );
-    ack = !GET_SDA ( p_obj ); /* ACK : SDA pin is pulled low */
+    SCL_H ( p_obj );  // 需要等待时钟上升沿稳定后才去读取SDA线的电平状态
+    while (i&&(!ack))
+    {
+        ack = !GET_SDA ( p_obj ); /* ACK : SDA pin is pulled low */
+    }
+    
     SCL_L ( p_obj );
     return ack;
 }
@@ -266,7 +293,7 @@ static cmw_s32_t i2c_send_address ( struct cmw_iic_obj *p_obj,
  *
  * @param p_obj
  * @param msg
- * @param retries
+ * @param retries 重发次数
  * @return cmw_err_t
  */
 static cmw_err_t i2c_bit_send_address ( struct cmw_iic_obj *p_obj,

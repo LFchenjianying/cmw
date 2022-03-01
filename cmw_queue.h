@@ -2,6 +2,7 @@
  * @file cmw_rqueue.h
  * @author {chenjianying} ({LFchenjianying@outlook.com})
  * @brief 
+ *          1. 非覆盖环形队列
  * @version 0.1
  * @date 2022-02-27
  * 

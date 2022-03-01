@@ -68,7 +68,6 @@ typedef struct cmw_iic_obj
         void ( *set_sda ) ( cmw_bool_t u32_sta );
         void ( *set_scl ) ( cmw_bool_t et_sta );
         cmw_bool_t ( *get_sda ) ( void );
-        cmw_bool_t ( *get_scl ) ( void );
         void ( *delay ) ( cmw_u32_t u32_val ); /* delay 函数 */
 
     } in_method;
